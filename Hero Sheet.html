@@ -1,0 +1,2854 @@
+<!-- 
+    TODO: 
+    Implement skill tier costs. 
+    Combat minipage (LOTS)
+    Calculate bonus to skill from points spent and progression
+    Implement racial maximum for attributes
+    Equip button on weapons
+    Equip button on armor
+    Vehichles
+    ...
+    And a lot more. 
+
+-->
+
+<!-- 
+    TODO
+-->
+
+<div class="canvas">
+
+
+
+    <!-- BASIC PAGE -->
+    <input type="checkbox" class="tab tab1" name="attr_core-tab1" value="1" title="Basic Info" />
+    <span class="tab tab1" style='line-height: 40px;'>Attributes</span>
+    <div class="section-attribute">
+        <div class="outer-container attributes-outer-container">
+            <div class="internal-container text flex">
+                <div class="widget borderedContainer">
+
+                    <input class='sheet-attributes-toggle' type='hidden' name='attr_toggle-attributes'>
+    				<input type='checkbox' name='attr_toggle-attributes' value="1" checked><span class="goldenHeading" style='line-height: 40px;'> Attributes</span></input>
+                    
+                    <div class="sheet-section-attributes-hidden">
+                        <table>
+                            <tr>
+                                <th class="skill-name">Attribute</th>
+                                <th class="skill-bonus">Stat</th>
+                            </tr>
+                            <tr>
+                                <td class="skill-name"><span class="subheading">Strength</span></td>
+                                <td class="skill-bonus"><button class="blank-roll-button" type="roll" value="&{template:default} {{name=Strength}} {{roll=[[1d20+@{strength}]]}}" />+<span name="attr_strength" /></button></td>
+                            </tr>
+                            <tr>
+                                <td class="skill-name"><span class="subheading">Dexterity</span></td>	
+                                <td class="skill-bonus"><button class="blank-roll-button" type="roll" value="&{template:default} {{name=Dexterity}} {{roll=[[1d20+@{dexterity}]]}}" />+<span name="attr_dexterity" /></button></td>
+                            </tr>
+                            <tr>
+                                <td class="skill-name"><span class="subheading">Constitution</span></td>
+                                <td class="skill-bonus"><button class="blank-roll-button" type="roll" value="&{template:default} {{name=Constitution}} {{roll=[[1d20+@{constitution}]]}}" />+<span name="attr_constitution" /></button></td>
+                            </tr>
+                            <tr>
+                                <td class="skill-name"><span class="subheading">Intelligence</span></td>
+                                <td class="skill-bonus"><button class="blank-roll-button" type="roll" value="&{template:default} {{name=Intelligence}} {{roll=[[1d20+@{intelligence}]]}}" />+<span name="attr_intelligence" /></button></td>
+                            </tr>
+                            <tr>
+                                <td class="skill-name"><span class="subheading">Wisdom</span></td>
+                                <td class="skill-bonus"><button class="blank-roll-button" type="roll" value="&{template:default} {{name=Wisdom}} {{roll=[[1d20+@{wisdom}]]}}" />+<span name="attr_wisdom" /></button></td>
+                            </tr>
+                            <tr>
+                                <td class="skill-name"><span class="subheading">Charisma</span></td>
+                                <td class="skill-bonus"><button class="blank-roll-button" type="roll" value="&{template:default} {{name=Charisma}} {{roll=[[1d20+@{charisma}]]}}" />+<span name="attr_charisma" /></button></td>
+                            </tr>
+                        </table>
+                    </div>
+                    
+					<div class="sheet-section-attributes-revealed">
+                        <table>
+                            <tr>
+                                <th class="skill-name">Attribute</th>
+                                <th class="skill-bonus">Stat</th>
+                                <th class="skill-input">Racial</th>
+                                <th class="skill-input">Cyb</th>
+                                <th class="skill-input">Gene</th>
+                                <th class="skill-input">Misc</th>
+                                <th class="skill-input">Points</th>
+                            </tr>
+                            <tr>
+                                <td class="skill-name"><span class="subheading">Strength</span></td>
+                                <td class="skill-bonus"><button class="blank-roll-button" type="roll" value="&{template:default} {{name=Strength}} {{roll=[[1d20+@{strength}]]}}" />+<span name="attr_strength" /></button></td>
+                                <td class="attributesColumn"><span name="attr_strengthRacial"></span></td>
+                                <td class="attributesColumn"><input class="inputfield text" style="width: 50px;" type="number" name="attr_strengthCybernetic" min="0" max="999"/></td>
+                                <td class="attributesColumn"><input class="inputfield text" style="width: 50px;" type="number" name="attr_strengthGenetic" min="0" max="999"/></td>
+                                <td class="attributesColumn"><input class="inputfield text" style="width: 50px;" type="number" name="attr_strengthMisc" min="0" max="999"/></td>
+                                <td class="attributesColumn"><input class="inputfield text" style="width: 50px;" type="number" name="attr_strengthPoints" min="0" max="999"/></td>
+                            </tr>
+                            <tr>
+                                <td class="skill-name"><span class="subheading">Dexterity</span></td>	
+                                <td class="skill-bonus"><button class="blank-roll-button" type="roll" value="&{template:default} {{name=Dexterity}} {{roll=[[1d20+@{dexterity}]]}}" />+<span name="attr_dexterity" /></button></td>
+                                <td class="skill-input"><span name="attr_dexterityRacial"></span></td>
+                                <td class="skill-input"><input class="inputfield text" style="width: 50px;" type="number" name="attr_dexterityCybernetic" min="0" max="999"/></td>
+                                <td class="skill-input"><input class="inputfield text" style="width: 50px;" type="number" name="attr_dexterityGenetic" min="0" max="999"/></td>
+                                <td class="skill-input"><input class="inputfield text" style="width: 50px;" type="number" name="attr_dexterityMisc" min="0" max="999"/></td>
+                                <td class="skill-input"><input class="inputfield text" style="width: 50px;" type="number" name="attr_dexterityPoints" min="0" max="999"/></td>
+                            </tr>
+                            <tr>
+                                <td class="skill-name"><span class="subheading">Constitution</span></td>
+                                <td class="skill-bonus"><button class="blank-roll-button" type="roll" value="&{template:default} {{name=Constitution}} {{roll=[[1d20+@{constitution}]]}}" />+<span name="attr_constitution" /></button></td>
+                                <td class="skill-input"><span name="attr_constitutionRacial"></span></td>
+                                <td class="skill-input"><input class="inputfield text" style="width: 50px;" type="number" name="attr_constitutionCybernetic" min="0" max="999"/></td>
+                                <td class="skill-input"><input class="inputfield text" style="width: 50px;" type="number" name="attr_constitutionGenetic" min="0" max="999"/></td>
+                                <td class="skill-input"><input class="inputfield text" style="width: 50px;" type="number" name="attr_constitutionMisc" min="0" max="999"/></td>
+                                <td class="skill-input"><input class="inputfield text" style="width: 50px;" type="number" name="attr_constitutionPoints" min="0" max="999"/></td>
+                            </tr>
+                            <tr>
+                                <td class="skill-name"><span class="subheading">Intelligence</span></td>
+                                <td class="skill-bonus"><button class="blank-roll-button" type="roll" value="&{template:default} {{name=Intelligence}} {{roll=[[1d20+@{intelligence}]]}}" />+<span name="attr_intelligence" /></button></td>
+                                <td class="skill-input"><span name="attr_intelligenceRacial"></span></td>
+                                <td class="skill-input"><input class="inputfield text" style="width: 50px;" type="number" name="attr_intelligenceCybernetic" min="0" max="999"/></td>
+                                <td class="skill-input"><input class="inputfield text" style="width: 50px;" type="number" name="attr_intelligenceGenetic" min="0" max="999"/></td>
+                                <td class="skill-input"><input class="inputfield text" style="width: 50px;" type="number" name="attr_intelligenceMisc" min="0" max="999"/></td>
+                                <td class="skill-input"><input class="inputfield text" style="width: 50px;" type="number" name="attr_intelligencePoints" min="0" max="999"/></td>
+                            </tr>
+                            <tr>
+                                <td class="skill-name"><span class="subheading">Wisdom</span></td>
+                                <td class="skill-bonus"><button class="blank-roll-button" type="roll" value="&{template:default} {{name=Wisdom}} {{roll=[[1d20+@{wisdom}]]}}" />+<span name="attr_wisdom" /></button></td>
+                                <td class="skill-input"><span name="attr_wisdomRacial"></span></td>
+                                <td class="skill-input"><input class="inputfield text" style="width: 50px;" type="number" name="attr_wisdomCybernetic" min="0" max="999"/></td>
+                                <td class="skill-input"><input class="inputfield text" style="width: 50px;" type="number" name="attr_wisdomGenetic" min="0" max="999"/></td>
+                                <td class="skill-input"><input class="inputfield text" style="width: 50px;" type="number" name="attr_wisdomMisc" min="0" max="999"/></td>
+                                <td class="skill-input"><input class="inputfield text" style="width: 50px;" type="number" name="attr_wisdomPoints" min="0" max="999"/></td>
+                            </tr>
+                            <tr>
+                                <td class="skill-name"><span class="subheading">Charisma</span></td>
+                                <td class="skill-bonus"><button class="blank-roll-button" type="roll" value="&{template:default} {{name=Charisma}} {{roll=[[1d20+@{charisma}]]}}" />+<span name="attr_charisma" /></button></td>
+                                <td class="skill-input"><span name="attr_charismaRacial"></span></td>
+                                <td class="skill-input"><input class="inputfield text" style="width: 50px;" type="number" name="attr_charismaCybernetic" min="0" max="999"/></td>
+                                <td class="skill-input"><input class="inputfield text" style="width: 50px;" type="number" name="attr_charismaGenetic" min="0" max="999"/></td>
+                                <td class="skill-input"><input class="inputfield text" style="width: 50px;" type="number" name="attr_charismaMisc" min="0" max="999"/></td>
+                                <td class="skill-input"><input class="inputfield text" style="width: 50px;" type="number" name="attr_charismaPoints" min="0" max="999"/></td>
+                            </tr>
+                        </table>
+                    </div>
+                    
+                </div>
+                
+                <div class="flex" style="width:400px">
+                    <div class="widget borderedContainer">
+                        <span class="goldenHeading">Race</span><br />
+                        <select class="text dropdown blue-color" type="text" name="attr_race">
+                            <option disabled hidden selected></option>
+                            <option style="color:white;background:#000000;">Talaxian</option>
+                            <option style="color:white;background:#000000;">Sollox</option>
+                            <option style="color:white;background:#000000;">Thorn</option>
+                            <option style="color:white;background:#000000;">Custom</option>
+                        </select>
+                    </div>
+                    <div class="widget borderedContainer">
+                        <span class="goldenHeading">Points</span><br />
+                        <table>
+                            <tr>
+                                <td>Points spent: </td>
+                                <td> <div style="width: 75px; text-align: center;"><span class="subheading" name="attr_totalPoints" /></div></td>
+                                <td>Life Cord: </td>
+                                <td><div style="width: 75px; text-align: center;"><span class="subheading" name="attr_lifeCord" /></div></td>
+                            </tr>
+                            <tr>
+                                <td>Points granted: </td>
+                                <td><input class="inputfield subheading" style="width: 90px; text-align:center;" type="number" name="attr_pointsGranted" min="0" max="9999"/></td>
+                                <td>RE: </td>
+                                <td><div style="width: 75px; text-align: center;"><span class="subheading" name="attr_RE" /></div></td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="widget borderedContainer" style="width:321px">
+                        <span class="goldenHeading">Currency </span>
+                        <table>
+                            <tr>
+                                <td class="currency-label">Galactic Credits</td>
+                                <td class="currency-input"><input class="inputfield subheading text blue-color" style="width: 160px; text-align:center;" type="number" name="attr_galacticCredits" min="0" max="9999"/></td>
+                            </tr>
+                            <tr>
+                                <td class="currency-label">Gold</td>
+                                <td class="currency-input"><input class="inputfield subheading text gold-color" style="width: 160px; text-align:center;" type="number" name="attr_gold" min="0" max="9999"/></td>
+                            </tr>
+                            <tr>
+                                <td class="currency-label"><span class="text red-color">Credit</span></td>
+                                <td class="currency-input"><input class="inputfield subheading text red-color" style="width: 160px; text-align:center;" type="number" name="attr_credit" min="0" max="9999"/></span></td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <input type="checkbox" class="tab tab2" name="attr_core-tab2" value="2" title="Skills" />
+    <span class="tab tab2" style='line-height: 40px;'>Education</span>
+    <div class="section-education">
+        <div class="education-outer-container">
+            <div class="internal-container text">
+				<input type='checkbox' name='attr_toggle-education' value="1" checked><span class="goldenHeading" style='line-height: 40px;'> Education</span></input>
+                <div class="flex">
+                    <input class='sheet-education-toggle' type='hidden' name='attr_toggle-education'>
+                    
+    				<div class="widget borderedContainer sheet-section-education-hidden">
+    				    <table>
+    				        <tr>
+    				            <td class="skill-name"><span class="subheading">Biology</span></td>
+								<td class="skill-bonus"><button class="blank-roll-button" type="roll" value="&{template:default} {{name=Biology}} {{roll=[[1d20+@{biology}]]}}" />+<span name="attr_biology" /></button></td>
+    				        </tr>
+    				    </table>
+    				</div>
+    				
+    				<div class="widget borderedContainer sheet-section-education-hidden">
+    				    <table>
+    				        <tr>
+    				            <td class="skill-name"><span class="subheading">Business</span></td>
+								<td class="skill-bonus"><button class="blank-roll-button" type="roll" value="&{template:default} {{name=Business}} {{roll=[[1d20+@{business}]]}}" />+<span name="attr_business" /></button></td>
+    				        </tr>
+    				    </table>
+    				</div>
+    				
+    				<div class="widget borderedContainer sheet-section-education-hidden">
+    				    <table>
+    				        <tr>
+    				            <td class="skill-name"><span class="subheading">Chemistry</span></td>
+								<td class="skill-bonus"><button class="blank-roll-button" type="roll" value="&{template:default} {{name=Chemistry}} {{roll=[[1d20+@{chemistry}]]}}" />+<span name="attr_chemistry" /></button></td>
+    				        </tr>
+    				    </table>
+    				</div>
+    				
+    				<div class="widget borderedContainer sheet-section-education-hidden">
+    				    <table>
+    				        <tr>
+    				            <td class="skill-name"><span class="subheading">Tronics</span></td>
+								<td class="skill-bonus"><button class="blank-roll-button" type="roll" value="&{template:default} {{name=Tronics}} {{roll=[[1d20+@{tronics}]]}}" />+<span name="attr_tronics" /></button></td>
+    				        </tr>
+    				    </table>
+    				</div>
+    				
+    				<div class="widget borderedContainer sheet-section-education-hidden">
+    				    <table>
+    				        <tr>
+    				            <td class="skill-name"><span class="subheading">Law</span></td>
+								<td class="skill-bonus"><button class="blank-roll-button" type="roll" value="&{template:default} {{name=Law}} {{roll=[[1d20+@{law}]]}}" />+<span name="attr_law" /></button></td>
+    				        </tr>
+    				    </table>
+    				</div>
+    				
+    				<div class="widget borderedContainer sheet-section-education-hidden">
+    				    <table>
+    				        <tr>
+    				            <td class="skill-name"><span class="subheading">Chemistry</span></td>
+								<td class="skill-bonus"><button class="blank-roll-button" type="roll" value="&{template:default} {{name=Chemistry}} {{roll=[[1d20+@{chemistry}]]}}" />+<span name="attr_chemistry" /></button></td>
+    				        </tr>
+    				    </table>
+    				</div>
+    				
+    				<div class="widget borderedContainer sheet-section-education-hidden">
+    				    <table>
+    				        <tr>
+    				            <td class="skill-name"><span class="subheading">Physics</span></td>
+								<td class="skill-bonus"><button class="blank-roll-button" type="roll" value="&{template:default} {{name=Physics}} {{roll=[[1d20+@{physics}]]}}" />+<span name="attr_physics" /></button></td>
+    				        </tr>
+    				    </table>
+    				</div>
+    				
+    				<div class="widget borderedContainer sheet-section-education-hidden">
+    				    <table>
+    				        <tr>
+    				            <td class="skill-name"><span class="subheading">Programming</span></td>
+								<td class="skill-bonus"><button class="blank-roll-button" type="roll" value="&{template:default} {{name=Programming}} {{roll=[[1d20+@{programming}]]}}" />+<span name="attr_programming" /></button></td>
+    				        </tr>
+    				    </table>
+    				</div>
+    				
+        			<div class="widget borderedContainer sheet-section-education-revealed">
+                        <table>
+    							<tr>
+    								<th class="skill-name">Education</th>
+                                    <th class="skill-bonus">Bonus</th>
+                                    <th class="skill-attribute">Attribute</th>
+                                    <th class="skill-input">VI</th>
+                                    <th class="skill-input">Cause</th>
+                                    <th class="skill-input">Misc</th>
+                                    <th class="skill-progression">Progr.</th>
+                                    <th class="skill-input">Points</th>
+    							</tr>
+    							<tr>
+    								<td class="skill-name"><span class="subheading">Biology</span></td>
+    								<td class="skill-bonus"><button class="blank-roll-button" type="roll" value="&{template:default} {{name=Biology}} {{roll=[[1d20+@{biology}]]}}" />+<span name="attr_biology" /></button></td>
+                                    <td class="skill-attribute">
+                                        <select class="text dropdown grey" type="text" name="attr_biologyAttribute">
+                                            <option style="color:white;background:#000000;">Strength</option>
+                                            <option style="color:white;background:#000000;">Dexterity</option>
+                                            <option style="color:white;background:#000000;">Constitution</option>
+                                            <option style="color:white;background:#000000;" selected>Intelligence</option>
+                                            <option style="color:white;background:#000000;">Wisdom</option>
+                                            <option style="color:white;background:#000000;">Charisma</option>
+                                        </select>
+                                    </td>
+    								<td class="skill-input"><input class="inputfield text" style="width: 50px;" type="number" name="attr_biologyVI" min="0" max="999"/></td>
+    								<td class="skill-input"><input class="inputfield text" style="width: 50px;" type="number" name="attr_biologyCause" min="0" max="999"/></td>
+    								<td class="skill-input"><input class="inputfield text" style="width: 50px;" type="number" name="attr_biologyMisc" min="0" max="999"/></td>
+                                    <td class="skill-progression">
+                                        <select class="text dropdown grey" type="text" name="attr_biologyProgression">
+                                            <option style="color:white;background:#000000;">1,2,3,4</option>
+                                            <option style="color:white;background:#000000;">2,3,4,5</option>
+                                            <option style="color:white;background:#000000;">3,4,5,6</option>
+                                            <option style="color:white;background:#000000;">4,5,6,7</option>
+                                            <option style="color:white;background:#000000;">3,3,3,3</option>
+                                            <option style="color:white;background:#000000;">1,2,3,4,5...</option>
+                                        </select>
+                                    </td>
+    								<td class="skill-input"><input class="inputfield text" style="width: 50px;" type="number" name="attr_biologyPoints" min="0" max="999"/></td>
+    							</tr>
+    							<tr>
+    								<td class="skill-name"><span class="subheading">Business</span></td>
+    								<td class="skill-bonus"><button class="blank-roll-button" type="roll" value="&{template:default} {{name=Business}} {{roll=[[1d20+@{business}]]}}" />+<span name="attr_business" /></button></td>
+                                    <td class="skill-attribute">
+                                        <select class="text dropdown grey" type="text" name="attr_businessAttribute">
+                                            <option style="color:white;background:#000000;">Strength</option>
+                                            <option style="color:white;background:#000000;">Dexterity</option>
+                                            <option style="color:white;background:#000000;">Constitution</option>
+                                            <option style="color:white;background:#000000;">Intelligence</option>
+                                            <option style="color:white;background:#000000;">Wisdom</option>
+                                            <option style="color:white;background:#000000;" selected>Charisma</option>
+                                        </select>
+                                    </td>
+    								<td class="skill-input"><input class="inputfield text" style="width: 50px;" type="number" name="attr_businessVI" min="0" max="999"/></td>
+    								<td class="skill-input"><input class="inputfield text" style="width: 50px;" type="number" name="attr_businessCause" min="0" max="999"/></td>
+    								<td class="skill-input"><input class="inputfield text" style="width: 50px;" type="number" name="attr_businessMisc" min="0" max="999"/></td>
+                                    <td class="skill-progression">
+                                        <select class="text dropdown grey" type="text" name="attr_businessProgression">
+                                            <option style="color:white;background:#000000;">1,2,3,4</option>
+                                            <option style="color:white;background:#000000;">2,3,4,5</option>
+                                            <option style="color:white;background:#000000;">3,4,5,6</option>
+                                            <option style="color:white;background:#000000;">4,5,6,7</option>
+                                            <option style="color:white;background:#000000;">3,3,3,3</option>
+                                            <option style="color:white;background:#000000;">1,2,3,4,5...</option>
+                                        </select>
+                                    </td>
+    								<td class="skill-input"><input class="inputfield text" style="width: 50px;" type="number" name="attr_businessPoints" min="0" max="999"/></td>
+    							</tr>
+    							<tr>
+    								<td class="skill-name"><span class="subheading">Chemistry</span></td>
+    								<td class="skill-bonus"><button class="blank-roll-button" type="roll" value="&{template:default} {{name=Chemistry}} {{roll=[[1d20+@{chemistry}]]}}" />+<span name="attr_chemistry" /></button></td>
+                                    <td class="skill-attribute">
+                                        <select class="text dropdown grey" type="text" name="attr_chemistryAttribute">
+                                            <option style="color:white;background:#000000;">Strength</option>
+                                            <option style="color:white;background:#000000;">Dexterity</option>
+                                            <option style="color:white;background:#000000;">Constitution</option>
+                                            <option style="color:white;background:#000000;" selected>Intelligence</option>
+                                            <option style="color:white;background:#000000;">Wisdom</option>
+                                            <option style="color:white;background:#000000;">Charisma</option>
+                                        </select>
+                                    </td>
+    								<td class="skill-input"><input class="inputfield text" style="width: 50px;" type="number" name="attr_chemistryVI" min="0" max="999"/></td>
+    								<td class="skill-input"><input class="inputfield text" style="width: 50px;" type="number" name="attr_chemistryCause" min="0" max="999"/></td>
+    								<td class="skill-input"><input class="inputfield text" style="width: 50px;" type="number" name="attr_chemistryMisc" min="0" max="999"/></td>
+                                    <td class="skill-progression">
+                                        <select class="text dropdown grey" type="text" name="attr_chemistryProgression">
+                                            <option style="color:white;background:#000000;">1,2,3,4</option>
+                                            <option style="color:white;background:#000000;">2,3,4,5</option>
+                                            <option style="color:white;background:#000000;">3,4,5,6</option>
+                                            <option style="color:white;background:#000000;">4,5,6,7</option>
+                                            <option style="color:white;background:#000000;">3,3,3,3</option>
+                                            <option style="color:white;background:#000000;">1,2,3,4,5...</option>
+                                        </select>
+                                    </td>
+    								<td class="skill-input"><input class="inputfield text" style="width: 50px;" type="number" name="attr_chemistryPoints" min="0" max="999"/></td>
+    							</tr>
+    							<tr>
+    								<td class="skill-name"><span class="subheading">Tronics</span></td>
+    								<td class="skill-bonus"><button class="blank-roll-button" type="roll" value="&{template:default} {{name=Tronics}} {{roll=[[1d20+@{tronics}]]}}" />+<span name="attr_tronics" /></button></td>
+                                    <td class="skill-attribute">
+                                        <select class="text dropdown grey" type="text" name="attr_tronicsAttribute">
+                                            <option style="color:white;background:#000000;">Strength</option>
+                                            <option style="color:white;background:#000000;">Dexterity</option>
+                                            <option style="color:white;background:#000000;">Constitution</option>
+                                            <option style="color:white;background:#000000;" selected>Intelligence</option>
+                                            <option style="color:white;background:#000000;">Wisdom</option>
+                                            <option style="color:white;background:#000000;">Charisma</option>
+                                        </select>
+                                    </td>
+    								<td class="skill-input"><input class="inputfield text" style="width: 50px;" type="number" name="attr_tronicsVI" min="0" max="999"/></td>
+    								<td class="skill-input"><input class="inputfield text" style="width: 50px;" type="number" name="attr_tronicsCause" min="0" max="999"/></td>
+    								<td class="skill-input"><input class="inputfield text" style="width: 50px;" type="number" name="attr_tronicsMisc" min="0" max="999"/></td>
+                                    <td class="skill-progression">
+                                        <select class="text dropdown grey" type="text" name="attr_tronicsProgression">
+                                            <option style="color:white;background:#000000;">1,2,3,4</option>
+                                            <option style="color:white;background:#000000;">2,3,4,5</option>
+                                            <option style="color:white;background:#000000;">3,4,5,6</option>
+                                            <option style="color:white;background:#000000;">4,5,6,7</option>
+                                            <option style="color:white;background:#000000;">3,3,3,3</option>
+                                            <option style="color:white;background:#000000;">1,2,3,4,5...</option>
+                                        </select>
+                                    </td>
+    								<td class="skill-input"><input class="inputfield text" style="width: 50px;" type="number" name="attr_tronicsPoints" min="0" max="999"/></td>
+    							</tr>
+    							<tr>
+    								<td class="skill-name"><span class="subheading">Law</span></td>
+    								<td class="skill-bonus"><button class="blank-roll-button" type="roll" value="&{template:default} {{name=Law}} {{roll=[[1d20+@{law}]]}}" />+<span name="attr_law" /></button></td>
+                                    <td class="skill-attribute">
+                                        <select class="text dropdown grey" type="text" name="attr_lawAttribute">
+                                            <option style="color:white;background:#000000;">Strength</option>
+                                            <option style="color:white;background:#000000;">Dexterity</option>
+                                            <option style="color:white;background:#000000;">Constitution</option>
+                                            <option style="color:white;background:#000000;">Intelligence</option>
+                                            <option style="color:white;background:#000000;">Wisdom</option>
+                                            <option style="color:white;background:#000000;" selected>Charisma</option>
+                                        </select>
+                                    </td>
+    								<td class="skill-input"><input class="inputfield text" style="width: 50px;" type="number" name="attr_lawVI" min="0" max="999"/></td>
+    								<td class="skill-input"><input class="inputfield text" style="width: 50px;" type="number" name="attr_lawCause" min="0" max="999"/></td>
+    								<td class="skill-input"><input class="inputfield text" style="width: 50px;" type="number" name="attr_lawMisc" min="0" max="999"/></td>
+                                    <td class="skill-progression">
+                                        <select class="text dropdown grey" type="text" name="attr_lawProgression">
+                                            <option style="color:white;background:#000000;">1,2,3,4</option>
+                                            <option style="color:white;background:#000000;">2,3,4,5</option>
+                                            <option style="color:white;background:#000000;">3,4,5,6</option>
+                                            <option style="color:white;background:#000000;">4,5,6,7</option>
+                                            <option style="color:white;background:#000000;">3,3,3,3</option>
+                                            <option style="color:white;background:#000000;">1,2,3,4,5...</option>
+                                        </select>
+                                    </td>
+    								<td class="skill-input"><input class="inputfield text" style="width: 50px;" type="number" name="attr_lawPoints" min="0" max="999"/></td>
+    							</tr>
+    							<tr>
+    								<td class="skill-name"><span class="subheading">Physics</span></td>
+    								<td class="skill-bonus"><button class="blank-roll-button" type="roll" value="&{template:default} {{name=Physics}} {{roll=[[1d20+@{physics}]]}}" />+<span name="attr_physics" /></button></td>
+                                    <td class="skill-attribute">
+                                        <select class="text dropdown grey" type="text" name="attr_physicsAttribute">
+                                            <option style="color:white;background:#000000;">Strength</option>
+                                            <option style="color:white;background:#000000;">Dexterity</option>
+                                            <option style="color:white;background:#000000;">Constitution</option>
+                                            <option style="color:white;background:#000000;" selected>Intelligence</option>
+                                            <option style="color:white;background:#000000;">Wisdom</option>
+                                            <option style="color:white;background:#000000;">Charisma</option>
+                                        </select>
+                                    </td>
+    								<td class="skill-input"><input class="inputfield text" style="width: 50px;" type="number" name="attr_physicsVI" min="0" max="999"/></td>
+    								<td class="skill-input"><input class="inputfield text" style="width: 50px;" type="number" name="attr_physicsCause" min="0" max="999"/></td>
+    								<td class="skill-input"><input class="inputfield text" style="width: 50px;" type="number" name="attr_physicsMisc" min="0" max="999"/></td>
+                                    <td class="skill-progression">
+                                        <select class="text dropdown grey" type="text" name="attr_physicsProgression">
+                                            <option style="color:white;background:#000000;">1,2,3,4</option>
+                                            <option style="color:white;background:#000000;">2,3,4,5</option>
+                                            <option style="color:white;background:#000000;">3,4,5,6</option>
+                                            <option style="color:white;background:#000000;">4,5,6,7</option>
+                                            <option style="color:white;background:#000000;">3,3,3,3</option>
+                                            <option style="color:white;background:#000000;">1,2,3,4,5...</option>
+                                        </select>
+                                    </td>
+    								<td class="skill-input"><input class="inputfield text" style="width: 50px;" type="number" name="attr_physicsPoints" min="0" max="999"/></td>
+    							</tr>
+    							<tr>
+    								<td class="skill-name"><span class="subheading">Programming</span></td>
+    								<td class="skill-bonus"><button class="blank-roll-button" type="roll" value="&{template:default} {{name=Programming}} {{roll=[[1d20+@{programming}]]}}" />+<span name="attr_programming" /></button></td>
+                                    <td class="skill-attribute">
+                                        <select class="text dropdown grey" type="text" name="attr_programmingAttribute">
+                                            <option style="color:white;background:#000000;">Strength</option>
+                                            <option style="color:white;background:#000000;">Dexterity</option>
+                                            <option style="color:white;background:#000000;">Constitution</option>
+                                            <option style="color:white;background:#000000;" selected>Intelligence</option>
+                                            <option style="color:white;background:#000000;">Wisdom</option>
+                                            <option style="color:white;background:#000000;">Charisma</option>
+                                        </select>
+                                    </td>
+    								<td class="skill-input"><input class="inputfield text" style="width: 50px;" type="number" name="attr_programmingVI" min="0" max="999"/></td>
+    								<td class="skill-input"><input class="inputfield text" style="width: 50px;" type="number" name="attr_programmingCause" min="0" max="999"/></td>
+    								<td class="skill-input"><input class="inputfield text" style="width: 50px;" type="number" name="attr_programmingMisc" min="0" max="999"/></td>
+                                    <td class="skill-progression">
+                                        <select class="text dropdown grey" type="text" name="attr_programmingProgression">
+                                            <option style="color:white;background:#000000;">1,2,3,4</option>
+                                            <option style="color:white;background:#000000;">2,3,4,5</option>
+                                            <option style="color:white;background:#000000;">3,4,5,6</option>
+                                            <option style="color:white;background:#000000;">4,5,6,7</option>
+                                            <option style="color:white;background:#000000;">3,3,3,3</option>
+                                            <option style="color:white;background:#000000;">1,2,3,4,5...</option>
+                                        </select>
+                                    </td>
+    								<td class="skill-input"><input class="inputfield text" style="width: 50px;" type="number" name="attr_programmingPoints" min="0" max="999"/></td>
+    							</tr>
+                            </table>
+                    </div>
+                    
+                </div>
+            </div>
+    	</div>
+    </div>
+
+
+
+    <input type="checkbox" class="tab tab3" name="attr_core-tab3" value="3" title="General skills" />
+    <span class="tab tab3" style='line-height: 40px;'>General skills</span>
+    <div class="section-generalskills">
+        <div class="outer-container general-skills-outer-container">
+            <div class="internal-container text">
+				<input type='checkbox' name='attr_toggle-general-skills' value="1" checked><span class="goldenHeading" style='line-height: 40px;'> General skills</span></input>
+
+                <div class="flex">
+                    <input class='sheet-general-skills-toggle' type='hidden' name='attr_toggle-general-skills'>
+
+    				<div class="widget borderedContainer sheet-section-general-skills-hidden">
+    				    <table>
+    				        <tr>
+    				            <td class="skill-name"><span class="subheading">Melee</span></td>
+								<td class="skill-bonus"><button class="blank-roll-button" type="roll" value="&{template:default} {{name=Melee}} {{roll=[[1d20+@{fighterPilot}]]}}" />+<span name="attr_fighterPilot" /></button></td>
+    				        </tr>
+    				    </table>
+    				</div>
+
+    				<div class="widget borderedContainer sheet-section-general-skills-hidden">
+    				    <table>
+    				        <tr>
+    				            <td class="skill-name"><span class="subheading">Firearm</span></td>
+								<td class="skill-bonus"><button class="blank-roll-button" type="roll" value="&{template:default} {{name=Firearm}} {{roll=[[1d20+@{perform}]]}}" />+<span name="attr_perform" /></button></td>
+    				        </tr>
+    				    </table>
+    				</div>
+
+    				<div class="widget borderedContainer sheet-section-general-skills-hidden">
+    				    <table>
+    				        <tr>
+    				            <td class="skill-name"><span class="subheading">Acrobatics</span></td>
+								<td class="skill-bonus"><button class="blank-roll-button" type="roll" value="&{template:default} {{name=Acrobatics}} {{roll=[[1d20+@{acrobatics}]]}}" />+<span name="attr_acrobatics" /></button></td>
+    				        </tr>
+    				    </table>
+    				</div>
+
+    				<div class="widget borderedContainer sheet-section-general-skills-hidden">
+    				    <table>
+    				        <tr>
+    				            <td class="skill-name"><span class="subheading">Athletics</span></td>
+								<td class="skill-bonus"><button class="blank-roll-button" type="roll" value="&{template:default} {{name=Athletics}} {{roll=[[1d20+@{athletics}]]}}" />+<span name="attr_athletics" /></button></td>
+    				        </tr>
+    				    </table>
+    				</div>
+
+    				<div class="widget borderedContainer sheet-section-general-skills-hidden">
+    				    <table>
+    				        <tr>
+    				            <td class="skill-name"><span class="subheading">Awareness</span></td>
+								<td class="skill-bonus"><button class="blank-roll-button" type="roll" value="&{template:default} {{name=Awareness}} {{roll=[[1d20+@{awareness}]]}}" />+<span name="attr_awareness" /></button></td>
+    				        </tr>
+    				    </table>
+    				</div>
+
+    				<div class="widget borderedContainer sheet-section-general-skills-hidden">
+    				    <table>
+    				        <tr>
+    				            <td class="skill-name"><span class="subheading">Barter</span></td>
+								<td class="skill-bonus"><button class="blank-roll-button" type="roll" value="&{template:default} {{name=Barter}} {{roll=[[1d20+@{barter}]]}}" />+<span name="attr_barter" /></button></td>
+    				        </tr>
+    				    </table>
+    				</div>
+
+    				<div class="widget borderedContainer sheet-section-general-skills-hidden">
+    				    <table>
+    				        <tr>
+    				            <td class="skill-name"><span class="subheading">Charm</span></td>
+								<td class="skill-bonus"><button class="blank-roll-button" type="roll" value="&{template:default} {{name=Charm}} {{roll=[[1d20+@{charm}]]}}" />+<span name="attr_charm" /></button></td>
+    				        </tr>
+    				    </table>
+    				</div>
+
+    				<div class="widget borderedContainer sheet-section-general-skills-hidden">
+    				    <table>
+    				        <tr>
+    				            <td class="skill-name"><span class="subheading">Diplomacy</span></td>
+								<td class="skill-bonus"><button class="blank-roll-button" type="roll" value="&{template:default} {{name=Diplomacy}} {{roll=[[1d20+@{diplomacy}]]}}" />+<span name="attr_diplomacy" /></button></td>
+    				        </tr>
+    				    </table>
+    				</div>
+
+
+    				<div class="widget borderedContainer sheet-section-general-skills-hidden">
+    				    <table>
+    				        <tr>
+    				            <td class="skill-name"><span class="subheading">Focus</span></td>
+								<td class="skill-bonus"><button class="blank-roll-button" type="roll" value="&{template:default} {{name=Focus}} {{roll=[[1d20+@{focus}]]}}" />+<span name="attr_focus" /></button></td>
+    				        </tr>
+    				    </table>
+    				</div>
+
+    				<div class="widget borderedContainer sheet-section-general-skills-hidden">
+    				    <table>
+    				        <tr>
+    				            <td class="skill-name"><span class="subheading">Forgery</span></td>
+								<td class="skill-bonus"><button class="blank-roll-button" type="roll" value="&{template:default} {{name=Forgery}} {{roll=[[1d20+@{forgery}]]}}" />+<span name="attr_forgery" /></button></td>
+    				        </tr>
+    				    </table>
+    				</div>
+
+    				<div class="widget borderedContainer sheet-section-general-skills-hidden">
+    				    <table>
+    				        <tr>
+    				            <td class="skill-name"><span class="subheading">Gather info</span></td>
+								<td class="skill-bonus"><button class="blank-roll-button" type="roll" value="&{template:default} {{name=Gather info}} {{roll=[[1d20+@{gatherInfo}]]}}" />+<span name="attr_gatherInfo" /></button></td>
+    				        </tr>
+    				    </table>
+    				</div>
+
+    				<div class="widget borderedContainer sheet-section-general-skills-hidden">
+    				    <table>
+    				        <tr>
+    				            <td class="skill-name"><span class="subheading">Intimidate</span></td>
+								<td class="skill-bonus"><button class="blank-roll-button" type="roll" value="&{template:default} {{name=Intimidate}} {{roll=[[1d20+@{intimidate}]]}}" />+<span name="attr_intimidate" /></button></td>
+    				        </tr>
+    				    </table>
+    				</div>
+
+    				<div class="widget borderedContainer sheet-section-general-skills-hidden">
+    				    <table>
+    				        <tr>
+    				            <td class="skill-name"><span class="subheading">Investigation</span></td>
+								<td class="skill-bonus"><button class="blank-roll-button" type="roll" value="&{template:default} {{name=Investigation}} {{roll=[[1d20+@{investigation}]]}}" />+<span name="attr_investigation" /></button></td>
+    				        </tr>
+    				    </table>
+    				</div>
+
+    				<div class="widget borderedContainer sheet-section-general-skills-hidden">
+    				    <table>
+    				        <tr>
+    				            <td class="skill-name"><span class="subheading">Medic</span></td>
+								<td class="skill-bonus"><button class="blank-roll-button" type="roll" value="&{template:default} {{name=Medic}} {{roll=[[1d20+@{medic}]]}}" />+<span name="attr_medic" /></button></td>
+    				        </tr>
+    				    </table>
+    				</div>
+
+
+    				<div class="widget borderedContainer sheet-section-general-skills-hidden">
+    				    <table>
+    				        <tr>
+    				            <td class="skill-name"><span class="subheading">Pilot</span></td>
+								<td class="skill-bonus"><button class="blank-roll-button" type="roll" value="&{template:default} {{name=Pilot}} {{roll=[[1d20+@{pilot}]]}}" />+<span name="attr_pilot" /></button></td>
+    				        </tr>
+    				    </table>
+    				</div>
+
+    				<div class="widget borderedContainer sheet-section-general-skills-hidden">
+    				    <table>
+    				        <tr>
+    				            <td class="skill-name"><span class="subheading">Sleight of hand</span></td>
+								<td class="skill-bonus"><button class="blank-roll-button" type="roll" value="&{template:default} {{name=Sleight of hand}} {{roll=[[1d20+@{sleightOfHand}]]}}" />+<span name="attr_sleightOfHand" /></button></td>
+    				        </tr>
+    				    </table>
+    				</div>
+
+    				<div class="widget borderedContainer sheet-section-general-skills-hidden">
+    				    <table>
+    				        <tr>
+    				            <td class="skill-name"><span class="subheading">Stealth</span></td>
+								<td class="skill-bonus"><button class="blank-roll-button" type="roll" value="&{template:default} {{name=Stealth}} {{roll=[[1d20+@{stealth}]]}}" />+<span name="attr_stealth" /></button></td>
+    				        </tr>
+    				    </table>
+    				</div>
+
+    				<div class="widget borderedContainer sheet-section-general-skills-hidden">
+    				    <table>
+    				        <tr>
+    				            <td class="skill-name"><span class="subheading">Survival</span></td>
+								<td class="skill-bonus"><button class="blank-roll-button" type="roll" value="&{template:default} {{name=Survival}} {{roll=[[1d20+@{survival}]]}}" />+<span name="attr_survival" /></button></td>
+    				        </tr>
+    				    </table>
+    				</div>
+
+
+
+
+
+
+
+					<div class="widget borderedContainer sheet-section-general-skills-revealed">
+						<table>
+							<tr>
+								<th class="skill-name">General skills</th>
+                                <th class="skill-bonus">Roll</th>
+                                <th class="skill-attribute">Attribute</th>
+                                <th class="skill-input">VI</th>
+                                <th class="skill-input">Cause</th>
+                                <th class="skill-input">Misc</th>
+                                <th class="skill-progression">Progr.</th>
+                                <th class="skill-input">Points</th>
+							</tr>
+							<tr>
+								<td class="skill-name"><span class="subheading">Melee</span></td>
+								<td class="skill-bonus"><button class="blank-roll-button" type="roll" value="&{template:default} {{name=Melee}} {{roll=[[1d20+@{fighterPilot}]]}}" />+<span name="attr_fighterPilot" /></button></td>
+                                <td class="skill-attribute">
+                                    <select class="text dropdown grey" type="text" name="attr_fighterPilotAttribute">
+                                        <option style="color:white;background:#000000;">Strength</option>
+                                        <option style="color:white;background:#000000;" selected>Dexterity</option>
+                                        <option style="color:white;background:#000000;">Constitution</option>
+                                        <option style="color:white;background:#000000;">Intelligence</option>
+                                        <option style="color:white;background:#000000;">Wisdom</option>
+                                        <option style="color:white;background:#000000;">Charisma</option>
+                                    </select>
+                                </td>
+								<td class="skill-input"><input class="inputfield text" style="width: 50px;" type="number" name="attr_fighterPilotVI" min="0" max="999"/></td>
+								<td class="skill-input"><input class="inputfield text" style="width: 50px;" type="number" name="attr_fighterPilotCause" min="0" max="999"/></td>
+								<td class="skill-input"><input class="inputfield text" style="width: 50px;" type="number" name="attr_fighterPilotMisc" min="0" max="999"/></td>
+                                <td class="skill-progression">
+                                    <select class="text dropdown grey" type="text" name="attr_fighterPilotProgression">
+                                        <option style="color:white;background:#000000;">1,2,3,4</option>
+                                        <option style="color:white;background:#000000;">2,3,4,5</option>
+                                        <option style="color:white;background:#000000;">3,4,5,6</option>
+                                        <option style="color:white;background:#000000;">4,5,6,7</option>
+                                        <option style="color:white;background:#000000;">3,3,3,3</option>
+                                        <option style="color:white;background:#000000;">1,2,3,4,5...</option>
+                                    </select>
+                                </td>
+								<td class="skill-input"><input class="inputfield text" style="width: 50px;" type="number" name="attr_fighterPilotPoints" min="0" max="999"/></td>
+							</tr>
+							<tr>
+								<td class="skill-name"><span class="subheading">Ranged</span></td>
+								<td class="skill-bonus"><button class="blank-roll-button" type="roll" value="&{template:default} {{name=Ranged}} {{roll=[[1d20+@{perform}]]}}" />+<span name="attr_perform" /></button></td>
+                                <td class="skill-attribute">
+                                    <select class="text dropdown grey" type="text" name="attr_performAttribute">
+                                        <option style="color:white;background:#000000;">Strength</option>
+                                        <option style="color:white;background:#000000;" selected>Dexterity</option>
+                                        <option style="color:white;background:#000000;">Constitution</option>
+                                        <option style="color:white;background:#000000;">Intelligence</option>
+                                        <option style="color:white;background:#000000;">Wisdom</option>
+                                        <option style="color:white;background:#000000;">Charisma</option>
+                                    </select>
+                                </td>
+								<td class="skill-input"><input class="inputfield text" style="width: 50px;" type="number" name="attr_performVI" min="0" max="999"/></td>
+								<td class="skill-input"><input class="inputfield text" style="width: 50px;" type="number" name="attr_performCause" min="0" max="999"/></td>
+								<td class="skill-input"><input class="inputfield text" style="width: 50px;" type="number" name="attr_performMisc" min="0" max="999"/></td>
+                                <td class="skill-progression">
+                                    <select class="text dropdown grey" type="text" name="attr_performProgression">
+                                        <option style="color:white;background:#000000;">1,2,3,4</option>
+                                        <option style="color:white;background:#000000;">2,3,4,5</option>
+                                        <option style="color:white;background:#000000;">3,4,5,6</option>
+                                        <option style="color:white;background:#000000;">4,5,6,7</option>
+                                        <option style="color:white;background:#000000;">3,3,3,3</option>
+                                        <option style="color:white;background:#000000;">1,2,3,4,5...</option>
+                                    </select>
+                                </td>
+								<td class="skill-input"><input class="inputfield text" style="width: 50px;" type="number" name="attr_performPoints" min="0" max="999"/></td>
+							</tr>
+							<tr>
+								<td class="skill-name"><span class="subheading">Acrobatics</span></td>
+								<td class="skill-bonus"><button class="blank-roll-button" type="roll" value="&{template:default} {{name=Acrobatics}} {{roll=[[1d20+@{acrobatics}]]}}" />+<span name="attr_acrobatics" /></button></td>
+                                <td class="skill-attribute">
+                                    <select class="text dropdown grey" type="text" name="attr_acrobaticsAttribute">
+                                        <option style="color:white;background:#000000;">Strength</option>
+                                        <option style="color:white;background:#000000;" selected>Dexterity</option>
+                                        <option style="color:white;background:#000000;">Constitution</option>
+                                        <option style="color:white;background:#000000;">Intelligence</option>
+                                        <option style="color:white;background:#000000;">Wisdom</option>
+                                        <option style="color:white;background:#000000;">Charisma</option>
+                                    </select>
+                                </td>
+								<td class="skill-input"><input class="inputfield text" style="width: 50px;" type="number" name="attr_acrobaticsVI" min="0" max="999"/></td>
+								<td class="skill-input"><input class="inputfield text" style="width: 50px;" type="number" name="attr_acrobaticsCause" min="0" max="999"/></td>
+								<td class="skill-input"><input class="inputfield text" style="width: 50px;" type="number" name="attr_acrobaticsMisc" min="0" max="999"/></td>
+                                <td class="skill-progression">
+                                    <select class="text dropdown grey" type="text" name="attr_acrobaticsProgression">
+                                        <option style="color:white;background:#000000;">1,2,3,4</option>
+                                        <option style="color:white;background:#000000;">2,3,4,5</option>
+                                        <option style="color:white;background:#000000;">3,4,5,6</option>
+                                        <option style="color:white;background:#000000;">4,5,6,7</option>
+                                        <option style="color:white;background:#000000;">3,3,3,3</option>
+                                        <option style="color:white;background:#000000;">1,2,3,4,5...</option>
+                                    </select>
+                                </td>
+								<td class="skill-input"><input class="inputfield text" style="width: 50px;" type="number" name="attr_acrobaticsPoints" min="0" max="999"/></td>
+							</tr>
+							<tr>
+								<td class="skill-name"><span class="subheading">Athletics</span></td>
+								<td class="skill-bonus"><button class="blank-roll-button" type="roll" value="&{template:default} {{name=Athletics}} {{roll=[[1d20+@{athletics}]]}}" />+<span name="attr_athletics" /></button></td>
+                                <td class="skill-attribute">
+                                    <select class="text dropdown grey" type="text" name="attr_athleticsAttribute">
+                                        <option style="color:white;background:#000000;" selected>Strength</option>
+                                        <option style="color:white;background:#000000;">Dexterity</option>
+                                        <option style="color:white;background:#000000;">Constitution</option>
+                                        <option style="color:white;background:#000000;">Intelligence</option>
+                                        <option style="color:white;background:#000000;">Wisdom</option>
+                                        <option style="color:white;background:#000000;">Charisma</option>
+                                    </select>
+                                </td>
+								<td class="skill-input"><input class="inputfield text" style="width: 50px;" type="number" name="attr_athleticsVI" min="0" max="999"/></td>
+								<td class="skill-input"><input class="inputfield text" style="width: 50px;" type="number" name="attr_athleticsCause" min="0" max="999"/></td>
+								<td class="skill-input"><input class="inputfield text" style="width: 50px;" type="number" name="attr_athleticsMisc" min="0" max="999"/></td>
+                                <td class="skill-progression">
+                                    <select class="text dropdown grey" type="text" name="attr_athleticsProgression">
+                                        <option style="color:white;background:#000000;">1,2,3,4</option>
+                                        <option style="color:white;background:#000000;">2,3,4,5</option>
+                                        <option style="color:white;background:#000000;">3,4,5,6</option>
+                                        <option style="color:white;background:#000000;">4,5,6,7</option>
+                                        <option style="color:white;background:#000000;">3,3,3,3</option>
+                                        <option style="color:white;background:#000000;">1,2,3,4,5...</option>
+                                    </select>
+                                </td>
+								<td class="skill-input"><input class="inputfield text" style="width: 50px;" type="number" name="attr_athleticsPoints" min="0" max="999"/></td>
+							</tr>
+							<tr>
+								<td class="skill-name"><span class="subheading">Awareness</span></td>
+								<td class="skill-bonus"><button class="blank-roll-button" type="roll" value="&{template:default} {{name=Awareness}} {{roll=[[1d20+@{awareness}]]}}" />+<span name="attr_awareness" /></button></td>
+                                <td class="skill-attribute">
+                                    <select class="text dropdown grey" type="text" name="attr_awarenessAttribute">
+                                        <option style="color:white;background:#000000;">Strength</option>
+                                        <option style="color:white;background:#000000;">Dexterity</option>
+                                        <option style="color:white;background:#000000;">Constitution</option>
+                                        <option style="color:white;background:#000000;">Intelligence</option>
+                                        <option style="color:white;background:#000000;" selected>Wisdom</option>
+                                        <option style="color:white;background:#000000;">Charisma</option>
+                                    </select>
+                                </td>
+								<td class="skill-input"><input class="inputfield text" style="width: 50px;" type="number" name="attr_awarenessVI" min="0" max="999"/></td>
+								<td class="skill-input"><input class="inputfield text" style="width: 50px;" type="number" name="attr_awarenessCause" min="0" max="999"/></td>
+								<td class="skill-input"><input class="inputfield text" style="width: 50px;" type="number" name="attr_awarenessMisc" min="0" max="999"/></td>
+                                <td class="skill-progression">
+                                    <select class="text dropdown grey" type="text" name="attr_awarenessProgression">
+                                        <option style="color:white;background:#000000;">1,2,3,4</option>
+                                        <option style="color:white;background:#000000;">2,3,4,5</option>
+                                        <option style="color:white;background:#000000;">3,4,5,6</option>
+                                        <option style="color:white;background:#000000;">4,5,6,7</option>
+                                        <option style="color:white;background:#000000;">3,3,3,3</option>
+                                        <option style="color:white;background:#000000;">1,2,3,4,5...</option>
+                                    </select>
+                                </td>
+								<td class="skill-input"><input class="inputfield text" style="width: 50px;" type="number" name="attr_awarenessPoints" min="0" max="999"/></td>
+							</tr>
+							<tr>
+								<td class="skill-name"><span class="subheading">Barter</span></td>
+								<td class="skill-bonus"><button class="blank-roll-button" type="roll" value="&{template:default} {{name=Barter}} {{roll=[[1d20+@{barter}]]}}" />+<span name="attr_barter" /></button></td>
+                                <td class="skill-attribute">
+                                    <select class="text dropdown grey" type="text" name="attr_barterAttribute">
+                                        <option style="color:white;background:#000000;">Strength</option>
+                                        <option style="color:white;background:#000000;">Dexterity</option>
+                                        <option style="color:white;background:#000000;">Constitution</option>
+                                        <option style="color:white;background:#000000;">Intelligence</option>
+                                        <option style="color:white;background:#000000;">Wisdom</option>
+                                        <option style="color:white;background:#000000;" selected>Charisma</option>
+                                    </select>
+                                </td>
+								<td class="skill-input"><input class="inputfield text" style="width: 50px;" type="number" name="attr_barterVI" min="0" max="999"/></td>
+								<td class="skill-input"><input class="inputfield text" style="width: 50px;" type="number" name="attr_barterCause" min="0" max="999"/></td>
+								<td class="skill-input"><input class="inputfield text" style="width: 50px;" type="number" name="attr_barterMisc" min="0" max="999"/></td>
+                                <td class="skill-progression">
+                                    <select class="text dropdown grey" type="text" name="attr_barterProgression">
+                                        <option style="color:white;background:#000000;">1,2,3,4</option>
+                                        <option style="color:white;background:#000000;">2,3,4,5</option>
+                                        <option style="color:white;background:#000000;">3,4,5,6</option>
+                                        <option style="color:white;background:#000000;">4,5,6,7</option>
+                                        <option style="color:white;background:#000000;">3,3,3,3</option>
+                                        <option style="color:white;background:#000000;">1,2,3,4,5...</option>
+                                    </select>
+                                </td>
+								<td class="skill-input"><input class="inputfield text" style="width: 50px;" type="number" name="attr_barterPoints" min="0" max="999"/></td>
+							</tr>
+							<tr>
+								<td class="skill-name"><span class="subheading">Charm</span></td>
+								<td class="skill-bonus"><button class="blank-roll-button" type="roll" value="&{template:default} {{name=Charm}} {{roll=[[1d20+@{charm}]]}}" />+<span name="attr_charm" /></button></td>
+                                <td class="skill-attribute">
+                                    <select class="text dropdown grey" type="text" name="attr_charmAttribute">
+                                        <option style="color:white;background:#000000;">Strength</option>
+                                        <option style="color:white;background:#000000;">Dexterity</option>
+                                        <option style="color:white;background:#000000;">Constitution</option>
+                                        <option style="color:white;background:#000000;">Intelligence</option>
+                                        <option style="color:white;background:#000000;">Wisdom</option>
+                                        <option style="color:white;background:#000000;" selected>Charisma</option>
+                                    </select>
+                                </td>
+								<td class="skill-input"><input class="inputfield text" style="width: 50px;" type="number" name="attr_charmVI" min="0" max="999"/></td>
+								<td class="skill-input"><input class="inputfield text" style="width: 50px;" type="number" name="attr_charmCause" min="0" max="999"/></td>
+								<td class="skill-input"><input class="inputfield text" style="width: 50px;" type="number" name="attr_charmMisc" min="0" max="999"/></td>
+                                <td class="skill-progression">
+                                    <select class="text dropdown grey" type="text" name="attr_charmProgression">
+                                        <option style="color:white;background:#000000;">1,2,3,4</option>
+                                        <option style="color:white;background:#000000;">2,3,4,5</option>
+                                        <option style="color:white;background:#000000;">3,4,5,6</option>
+                                        <option style="color:white;background:#000000;">4,5,6,7</option>
+                                        <option style="color:white;background:#000000;">3,3,3,3</option>
+                                        <option style="color:white;background:#000000;">1,2,3,4,5...</option>
+                                    </select>
+                                </td>
+								<td class="skill-input"><input class="inputfield text" style="width: 50px;" type="number" name="attr_charmPoints" min="0" max="999"/></td>
+							</tr>
+							<tr>
+								<td class="skill-name"><span class="subheading">Diplomacy</span></td>
+								<td class="skill-bonus"><button class="blank-roll-button" type="roll" value="&{template:default} {{name=Diplomacy}} {{roll=[[1d20+@{diplomacy}]]}}" />+<span name="attr_diplomacy" /></button></td>
+                                <td class="skill-attribute">
+                                    <select class="text dropdown grey" type="text" name="attr_diplomacyAttribute">
+                                        <option style="color:white;background:#000000;">Strength</option>
+                                        <option style="color:white;background:#000000;">Dexterity</option>
+                                        <option style="color:white;background:#000000;">Constitution</option>
+                                        <option style="color:white;background:#000000;">Intelligence</option>
+                                        <option style="color:white;background:#000000;">Wisdom</option>
+                                        <option style="color:white;background:#000000;" selected>Charisma</option>
+                                    </select>
+                                </td>
+								<td class="skill-input"><input class="inputfield text" style="width: 50px;" type="number" name="attr_diplomacyVI" min="0" max="999"/></td>
+								<td class="skill-input"><input class="inputfield text" style="width: 50px;" type="number" name="attr_diplomacyCause" min="0" max="999"/></td>
+								<td class="skill-input"><input class="inputfield text" style="width: 50px;" type="number" name="attr_diplomacyMisc" min="0" max="999"/></td>
+                                <td class="skill-progression">
+                                    <select class="text dropdown grey" type="text" name="attr_diplomacyProgression">
+                                        <option style="color:white;background:#000000;">1,2,3,4</option>
+                                        <option style="color:white;background:#000000;">2,3,4,5</option>
+                                        <option style="color:white;background:#000000;">3,4,5,6</option>
+                                        <option style="color:white;background:#000000;">4,5,6,7</option>
+                                        <option style="color:white;background:#000000;">3,3,3,3</option>
+                                        <option style="color:white;background:#000000;">1,2,3,4,5...</option>
+                                    </select>
+                                </td>
+								<td class="skill-input"><input class="inputfield text" style="width: 50px;" type="number" name="attr_diplomacyPoints" min="0" max="999"/></td>
+							</tr>
+							<tr>
+								<td class="skill-name"><span class="subheading">Focus</span></td>
+								<td class="skill-bonus"><button class="blank-roll-button" type="roll" value="&{template:default} {{name=Focus}} {{roll=[[1d20+@{focus}]]}}" />+<span name="attr_focus" /></button></td>
+                                <td class="skill-attribute">
+                                    <select class="text dropdown grey" type="text" name="attr_focusAttribute">
+                                        <option style="color:white;background:#000000;">Strength</option>
+                                        <option style="color:white;background:#000000;">Dexterity</option>
+                                        <option style="color:white;background:#000000;" selected>Constitution</option>
+                                        <option style="color:white;background:#000000;">Intelligence</option>
+                                        <option style="color:white;background:#000000;">Wisdom</option>
+                                        <option style="color:white;background:#000000;">Charisma</option>
+                                    </select>
+                                </td>
+								<td class="skill-input"><input class="inputfield text" style="width: 50px;" type="number" name="attr_focusVI" min="0" max="999"/></td>
+								<td class="skill-input"><input class="inputfield text" style="width: 50px;" type="number" name="attr_focusCause" min="0" max="999"/></td>
+								<td class="skill-input"><input class="inputfield text" style="width: 50px;" type="number" name="attr_focusMisc" min="0" max="999"/></td>
+                                <td class="skill-progression">
+                                    <select class="text dropdown grey" type="text" name="attr_focusProgression">
+                                        <option style="color:white;background:#000000;">1,2,3,4</option>
+                                        <option style="color:white;background:#000000;">2,3,4,5</option>
+                                        <option style="color:white;background:#000000;">3,4,5,6</option>
+                                        <option style="color:white;background:#000000;">4,5,6,7</option>
+                                        <option style="color:white;background:#000000;">3,3,3,3</option>
+                                        <option style="color:white;background:#000000;">1,2,3,4,5...</option>
+                                    </select>
+                                </td>
+								<td class="skill-input"><input class="inputfield text" style="width: 50px;" type="number" name="attr_focusPoints" min="0" max="999"/></td>
+							</tr>
+							<tr>
+								<td class="skill-name"><span class="subheading">Forgery</span></td>
+								<td class="skill-bonus"><button class="blank-roll-button" type="roll" value="&{template:default} {{name=Forgery}} {{roll=[[1d20+@{forgery}]]}}" />+<span name="attr_forgery" /></button></td>
+                                <td class="skill-attribute">
+                                    <select class="text dropdown grey" type="text" name="attr_forgeryAttribute">
+                                        <option style="color:white;background:#000000;">Strength</option>
+                                        <option style="color:white;background:#000000;">Dexterity</option>
+                                        <option style="color:white;background:#000000;">Constitution</option>
+                                        <option style="color:white;background:#000000;" selected>Intelligence</option>
+                                        <option style="color:white;background:#000000;">Wisdom</option>
+                                        <option style="color:white;background:#000000;">Charisma</option>
+                                    </select>
+                                </td>
+								<td class="skill-input"><input class="inputfield text" style="width: 50px;" type="number" name="attr_forgeryVI" min="0" max="999"/></td>
+								<td class="skill-input"><input class="inputfield text" style="width: 50px;" type="number" name="attr_forgeryCause" min="0" max="999"/></td>
+								<td class="skill-input"><input class="inputfield text" style="width: 50px;" type="number" name="attr_forgeryMisc" min="0" max="999"/></td>
+                                <td class="skill-progression">
+                                    <select class="text dropdown grey" type="text" name="attr_forgeryProgression">
+                                        <option style="color:white;background:#000000;">1,2,3,4</option>
+                                        <option style="color:white;background:#000000;">2,3,4,5</option>
+                                        <option style="color:white;background:#000000;">3,4,5,6</option>
+                                        <option style="color:white;background:#000000;">4,5,6,7</option>
+                                        <option style="color:white;background:#000000;">3,3,3,3</option>
+                                        <option style="color:white;background:#000000;">1,2,3,4,5...</option>
+                                    </select>
+                                </td>
+								<td class="skill-input"><input class="inputfield text" style="width: 50px;" type="number" name="attr_forgeryPoints" min="0" max="999"/></td>
+							</tr>
+							<tr>
+								<td class="skill-name"><span class="subheading">Gather Info</span></td>
+								<td class="skill-bonus"><button class="blank-roll-button" type="roll" value="&{template:default} {{name=Gather Info}} {{roll=[[1d20+@{gatherInfo}]]}}" />+<span name="attr_gatherInfo" /></button></td>
+                                <td class="skill-attribute">
+                                    <select class="text dropdown grey" type="text" name="attr_gatherInfoAttribute">
+                                        <option style="color:white;background:#000000;">Strength</option>
+                                        <option style="color:white;background:#000000;">Dexterity</option>
+                                        <option style="color:white;background:#000000;">Constitution</option>
+                                        <option style="color:white;background:#000000;">Intelligence</option>
+                                        <option style="color:white;background:#000000;">Wisdom</option>
+                                        <option style="color:white;background:#000000;" selected>Charisma</option>
+                                    </select>
+                                </td>
+								<td class="skill-input"><input class="inputfield text" style="width: 50px;" type="number" name="attr_gatherInfoVI" min="0" max="999"/></td>
+								<td class="skill-input"><input class="inputfield text" style="width: 50px;" type="number" name="attr_gatherInfoCause" min="0" max="999"/></td>
+								<td class="skill-input"><input class="inputfield text" style="width: 50px;" type="number" name="attr_gatherInfoMisc" min="0" max="999"/></td>
+                                <td class="skill-progression">
+                                    <select class="text dropdown grey" type="text" name="attr_gatherInfoProgression">
+                                        <option style="color:white;background:#000000;">1,2,3,4</option>
+                                        <option style="color:white;background:#000000;">2,3,4,5</option>
+                                        <option style="color:white;background:#000000;">3,4,5,6</option>
+                                        <option style="color:white;background:#000000;">4,5,6,7</option>
+                                        <option style="color:white;background:#000000;">3,3,3,3</option>
+                                        <option style="color:white;background:#000000;">1,2,3,4,5...</option>
+                                    </select>
+                                </td>
+								<td class="skill-input"><input class="inputfield text" style="width: 50px;" type="number" name="attr_gatherInfoPoints" min="0" max="999"/></td>
+							</tr>
+							<tr>
+								<td class="skill-name"><span class="subheading">Intimidate</span></td>
+								<td class="skill-bonus"><button class="blank-roll-button" type="roll" value="&{template:default} {{name=Intimidate}} {{roll=[[1d20+@{intimidate}]]}}" />+<span name="attr_intimidate" /></button></td>
+                                <td class="skill-attribute">
+                                    <select class="text dropdown grey" type="text" name="attr_intimidateAttribute">
+                                        <option style="color:white;background:#000000;">Strength</option>
+                                        <option style="color:white;background:#000000;">Dexterity</option>
+                                        <option style="color:white;background:#000000;">Constitution</option>
+                                        <option style="color:white;background:#000000;">Intelligence</option>
+                                        <option style="color:white;background:#000000;">Wisdom</option>
+                                        <option style="color:white;background:#000000;" selected>Charisma</option>
+                                    </select>
+                                </td>
+								<td class="skill-input"><input class="inputfield text" style="width: 50px;" type="number" name="attr_intimidateVI" min="0" max="999"/></td>
+								<td class="skill-input"><input class="inputfield text" style="width: 50px;" type="number" name="attr_intimidateCause" min="0" max="999"/></td>
+								<td class="skill-input"><input class="inputfield text" style="width: 50px;" type="number" name="attr_intimidateMisc" min="0" max="999"/></td>
+                                <td class="skill-progression">
+                                    <select class="text dropdown grey" type="text" name="attr_intimidateProgression">
+                                        <option style="color:white;background:#000000;">1,2,3,4</option>
+                                        <option style="color:white;background:#000000;">2,3,4,5</option>
+                                        <option style="color:white;background:#000000;">3,4,5,6</option>
+                                        <option style="color:white;background:#000000;">4,5,6,7</option>
+                                        <option style="color:white;background:#000000;">3,3,3,3</option>
+                                        <option style="color:white;background:#000000;">1,2,3,4,5...</option>
+                                    </select>
+                                </td>
+								<td class="skill-input"><input class="inputfield text" style="width: 50px;" type="number" name="attr_intimidatePoints" min="0" max="999"/></td>
+							</tr>
+							<tr>
+								<td class="skill-name"><span class="subheading">Investigation</span></td>
+								<td class="skill-bonus"><button class="blank-roll-button" type="roll" value="&{template:default} {{name=Investigation}} {{roll=[[1d20+@{investigation}]]}}" />+<span name="attr_investigation" /></button></td>
+                                <td class="skill-attribute">
+                                    <select class="text dropdown grey" type="text" name="attr_investigationAttribute">
+                                        <option style="color:white;background:#000000;">Strength</option>
+                                        <option style="color:white;background:#000000;">Dexterity</option>
+                                        <option style="color:white;background:#000000;">Constitution</option>
+                                        <option style="color:white;background:#000000;" selected>Intelligence</option>
+                                        <option style="color:white;background:#000000;">Wisdom</option>
+                                        <option style="color:white;background:#000000;">Charisma</option>
+                                    </select>
+                                </td>
+								<td class="skill-input"><input class="inputfield text" style="width: 50px;" type="number" name="attr_investigationVI" min="0" max="999"/></td>
+								<td class="skill-input"><input class="inputfield text" style="width: 50px;" type="number" name="attr_investigationCause" min="0" max="999"/></td>
+								<td class="skill-input"><input class="inputfield text" style="width: 50px;" type="number" name="attr_investigationMisc" min="0" max="999"/></td>
+                                <td class="skill-progression">
+                                    <select class="text dropdown grey" type="text" name="attr_investigationProgression">
+                                        <option style="color:white;background:#000000;">1,2,3,4</option>
+                                        <option style="color:white;background:#000000;">2,3,4,5</option>
+                                        <option style="color:white;background:#000000;">3,4,5,6</option>
+                                        <option style="color:white;background:#000000;">4,5,6,7</option>
+                                        <option style="color:white;background:#000000;">3,3,3,3</option>
+                                        <option style="color:white;background:#000000;">1,2,3,4,5...</option>
+                                    </select>
+                                </td>
+								<td class="skill-input"><input class="inputfield text" style="width: 50px;" type="number" name="attr_investigationPoints" min="0" max="999"/></td>
+							</tr>
+							<tr>
+								<td class="skill-name"><span class="subheading">Medic</span></td>
+								<td class="skill-bonus"><button class="blank-roll-button" type="roll" value="&{template:default} {{name=Medic}} {{roll=[[1d20+@{medic}]]}}" />+<span name="attr_medic" /></button></td>
+                                <td class="skill-attribute">
+                                    <select class="text dropdown grey" type="text" name="attr_medicAttribute">
+                                        <option style="color:white;background:#000000;">Strength</option>
+                                        <option style="color:white;background:#000000;">Dexterity</option>
+                                        <option style="color:white;background:#000000;">Constitution</option>
+                                        <option style="color:white;background:#000000;">Intelligence</option>
+                                        <option style="color:white;background:#000000;" selected>Wisdom</option>
+                                        <option style="color:white;background:#000000;">Charisma</option>
+                                    </select>
+                                </td>
+								<td class="skill-input"><input class="inputfield text" style="width: 50px;" type="number" name="attr_medicVI" min="0" max="999"/></td>
+								<td class="skill-input"><input class="inputfield text" style="width: 50px;" type="number" name="attr_medicCause" min="0" max="999"/></td>
+								<td class="skill-input"><input class="inputfield text" style="width: 50px;" type="number" name="attr_medicMisc" min="0" max="999"/></td>
+                                <td class="skill-progression">
+                                    <select class="text dropdown grey" type="text" name="attr_medicProgression">
+                                        <option style="color:white;background:#000000;">1,2,3,4</option>
+                                        <option style="color:white;background:#000000;">2,3,4,5</option>
+                                        <option style="color:white;background:#000000;">3,4,5,6</option>
+                                        <option style="color:white;background:#000000;">4,5,6,7</option>
+                                        <option style="color:white;background:#000000;">3,3,3,3</option>
+                                        <option style="color:white;background:#000000;">1,2,3,4,5...</option>
+                                    </select>
+                                </td>
+								<td class="skill-input"><input class="inputfield text" style="width: 50px;" type="number" name="attr_medicPoints" min="0" max="999"/></td>
+							</tr>
+							<tr>
+								<td class="skill-name"><span class="subheading">Pilot</span></td>
+								<td class="skill-bonus"><button class="blank-roll-button" type="roll" value="&{template:default} {{name=Pilot}} {{roll=[[1d20+@{pilot}]]}}" />+<span name="attr_pilot" /></button></td>
+                                <td class="skill-attribute">
+                                    <select class="text dropdown grey" type="text" name="attr_pilotAttribute">
+                                        <option style="color:white;background:#000000;">Strength</option>
+                                        <option style="color:white;background:#000000;">Dexterity</option>
+                                        <option style="color:white;background:#000000;">Constitution</option>
+                                        <option style="color:white;background:#000000;" selected>Intelligence</option>
+                                        <option style="color:white;background:#000000;">Wisdom</option>
+                                        <option style="color:white;background:#000000;">Charisma</option>
+                                    </select>
+                                </td>
+								<td class="skill-input"><input class="inputfield text" style="width: 50px;" type="number" name="attr_pilotVI" min="0" max="999"/></td>
+								<td class="skill-input"><input class="inputfield text" style="width: 50px;" type="number" name="attr_pilotCause" min="0" max="999"/></td>
+								<td class="skill-input"><input class="inputfield text" style="width: 50px;" type="number" name="attr_pilotMisc" min="0" max="999"/></td>
+                                <td class="skill-progression">
+                                    <select class="text dropdown grey" type="text" name="attr_pilotProgression">
+                                        <option style="color:white;background:#000000;">1,2,3,4</option>
+                                        <option style="color:white;background:#000000;">2,3,4,5</option>
+                                        <option style="color:white;background:#000000;">3,4,5,6</option>
+                                        <option style="color:white;background:#000000;">4,5,6,7</option>
+                                        <option style="color:white;background:#000000;">3,3,3,3</option>
+                                        <option style="color:white;background:#000000;">1,2,3,4,5...</option>
+                                    </select>
+                                </td>
+								<td class="skill-input"><input class="inputfield text" style="width: 50px;" type="number" name="attr_pilotPoints" min="0" max="999"/></td>
+							</tr>
+							<tr>
+								<td class="skill-name"><span class="subheading">Sleight of Hand</span></td>
+								<td class="skill-bonus"><button class="blank-roll-button" type="roll" value="&{template:default} {{name=Sleight of Hand}} {{roll=[[1d20+@{sleightOfHand}]]}}" />+<span name="attr_sleightOfHand" /></button></td>
+                                <td class="skill-attribute">
+                                    <select class="text dropdown grey" type="text" name="attr_sleightOfHandAttribute">
+                                        <option style="color:white;background:#000000;">Strength</option>
+                                        <option style="color:white;background:#000000;" selected>Dexterity</option>
+                                        <option style="color:white;background:#000000;">Constitution</option>
+                                        <option style="color:white;background:#000000;">Intelligence</option>
+                                        <option style="color:white;background:#000000;">Wisdom</option>
+                                        <option style="color:white;background:#000000;">Charisma</option>
+                                    </select>
+                                </td>
+								<td class="skill-input"><input class="inputfield text" style="width: 50px;" type="number" name="attr_sleightOfHandVI" min="0" max="999"/></td>
+								<td class="skill-input"><input class="inputfield text" style="width: 50px;" type="number" name="attr_sleightOfHandCause" min="0" max="999"/></td>
+								<td class="skill-input"><input class="inputfield text" style="width: 50px;" type="number" name="attr_sleightOfHandMisc" min="0" max="999"/></td>
+                                <td class="skill-progression">
+                                    <select class="text dropdown grey" type="text" name="attr_sleightOfHandProgression">
+                                        <option style="color:white;background:#000000;">1,2,3,4</option>
+                                        <option style="color:white;background:#000000;">2,3,4,5</option>
+                                        <option style="color:white;background:#000000;">3,4,5,6</option>
+                                        <option style="color:white;background:#000000;">4,5,6,7</option>
+                                        <option style="color:white;background:#000000;">3,3,3,3</option>
+                                        <option style="color:white;background:#000000;">1,2,3,4,5...</option>
+                                    </select>
+                                </td>
+								<td class="skill-input"><input class="inputfield text" style="width: 50px;" type="number" name="attr_sleightOfHandPoints" min="0" max="999"/></td>
+							</tr>
+							<tr>
+								<td class="skill-name"><span class="subheading">Stealth</span></td>
+								<td class="skill-bonus"><button class="blank-roll-button" type="roll" value="&{template:default} {{name=Stealth}} {{roll=[[1d20+@{stealth}]]}}" />+<span name="attr_stealth" /></button></td>
+                                <td class="skill-attribute">
+                                    <select class="text dropdown grey" type="text" name="attr_stealthAttribute">
+                                        <option style="color:white;background:#000000;">Strength</option>
+                                        <option style="color:white;background:#000000;" selected>Dexterity</option>
+                                        <option style="color:white;background:#000000;">Constitution</option>
+                                        <option style="color:white;background:#000000;">Intelligence</option>
+                                        <option style="color:white;background:#000000;">Wisdom</option>
+                                        <option style="color:white;background:#000000;">Charisma</option>
+                                    </select>
+                                </td>
+								<td class="skill-input"><input class="inputfield text" style="width: 50px;" type="number" name="attr_stealthVI" min="0" max="999"/></td>
+								<td class="skill-input"><input class="inputfield text" style="width: 50px;" type="number" name="attr_stealthCause" min="0" max="999"/></td>
+								<td class="skill-input"><input class="inputfield text" style="width: 50px;" type="number" name="attr_stealthMisc" min="0" max="999"/></td>
+                                <td class="skill-progression">
+                                    <select class="text dropdown grey" type="text" name="attr_stealthProgression">
+                                        <option style="color:white;background:#000000;">1,2,3,4</option>
+                                        <option style="color:white;background:#000000;">2,3,4,5</option>
+                                        <option style="color:white;background:#000000;">3,4,5,6</option>
+                                        <option style="color:white;background:#000000;">4,5,6,7</option>
+                                        <option style="color:white;background:#000000;">3,3,3,3</option>
+                                        <option style="color:white;background:#000000;">1,2,3,4,5...</option>
+                                    </select>
+                                </td>
+								<td class="skill-input"><input class="inputfield text" style="width: 50px;" type="number" name="attr_stealthPoints" min="0" max="999"/></td>
+							</tr>
+							<tr>
+								<td class="skill-name"><span class="subheading">Survival</span></td>
+								<td class="skill-bonus"><button class="blank-roll-button" type="roll" value="&{template:default} {{name=Survival}} {{roll=[[1d20+@{survival}]]}}" />+<span name="attr_survival" /></button></td>
+                                <td class="skill-attribute">
+                                    <select class="text dropdown grey" type="text" name="attr_survivalAttribute">
+                                        <option style="color:white;background:#000000;">Strength</option>
+                                        <option style="color:white;background:#000000;">Dexterity</option>
+                                        <option style="color:white;background:#000000;">Constitution</option>
+                                        <option style="color:white;background:#000000;">Intelligence</option>
+                                        <option style="color:white;background:#000000;" selected>Wisdom</option>
+                                        <option style="color:white;background:#000000;">Charisma</option>
+                                    </select>
+                                </td>
+								<td class="skill-input"><input class="inputfield text" style="width: 50px;" type="number" name="attr_survivalVI" min="0" max="999"/></td>
+								<td class="skill-input"><input class="inputfield text" style="width: 50px;" type="number" name="attr_survivalCause" min="0" max="999"/></td>
+								<td class="skill-input"><input class="inputfield text" style="width: 50px;" type="number" name="attr_survivalMisc" min="0" max="999"/></td>
+                                <td class="skill-progression">
+                                    <select class="text dropdown grey" type="text" name="attr_survivalProgression">
+                                        <option style="color:white;background:#000000;">1,2,3,4</option>
+                                        <option style="color:white;background:#000000;">2,3,4,5</option>
+                                        <option style="color:white;background:#000000;">3,4,5,6</option>
+                                        <option style="color:white;background:#000000;">4,5,6,7</option>
+                                        <option style="color:white;background:#000000;">3,3,3,3</option>
+                                        <option style="color:white;background:#000000;">1,2,3,4,5...</option>
+                                    </select>
+                                </td>
+								<td class="skill-input"><input class="inputfield text" style="width: 50px;" type="number" name="attr_survivalPoints" min="0" max="999"/></td>
+							</tr>
+						</table>
+					</div>
+				</div>
+            </div>
+    	</div>
+    </div>
+
+
+
+    <input type="checkbox" class="tab tab4" name="attr_core-tab4" value="4" title="Skills" />
+    <span class="tab tab4" style='line-height: 40px;'>Abilities</span>
+    <div class="section-abilities">
+        <div class="outer-container">
+            <div class="internal-container text">
+                <span class="goldenHeading" style='line-height: 40px;'>&nbsp; Abilities</span>
+                <div class="flex">
+                    
+<fieldset class='repeating_skills'>
+    <input class='sheet-abilities-toggle' type='hidden' name='attr_toggle-abilities'>
+    
+    <div class="widget sheet-section-abilities-hidden">
+        <div class="borderedContainer">
+            <table>
+                <tr>
+                    <td class="skill-input"><input type='checkbox' name='attr_toggle-abilities' value="1" checked></td>
+                    <td class="skill-name"><span class="subheading" name="attr_skill"></span></td>
+                    <td class="skill-bonus"><button class="blank-roll-button" type="roll" value="&{template:default} {{name=@{skill}}} {{roll=[[1d20+@{survival}]]}}" >+<span name="attr_survival" ></button></td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    
+    <div class="widget sheet-section-abilities-revealed">
+        <div class="borderedContainer">
+            <table>
+                <tr>
+                    <th class="skill-name"><input type='checkbox' name='attr_toggle-abilities' value="1" checked>Ability</th>				
+                    <th class="skill-bonus">Roll</th>
+                    <th class="skill-attribute">Attribute</th>
+                    <th class="skill-input">VI</th>
+                    <th class="skill-input">Cause</th>
+                    <th class="skill-input">Misc</th>
+                    <th class="skill-progression">Progr.</th>
+                    <th class="skill-input">Points</th>
+                </tr>
+                <tr>
+                    <td class="skill-name"><input class="inputfield text blue-color" style="width: 120px;" type="text" name="attr_skill"/></td>                                        
+                    <td class="skill-bonus"><button class="blank-roll-button" type="roll" value="&{template:default} {{name=@{skill} }} {{roll=[[1d20+@{skillAttribute}+@{skillVI}+@{skillCause}+@{skillMisc}+@{skillProgression}]]}}" >+<input class="blank-roll-button-mod" type="number" name="attr_skillModifier" value="[[((@{skillAttribute})+@{skillVI}+@{skillCause}+@{skillMisc})]]" disabled="true" /><!--span name="attr_skillModifier" disabled="true">0</span--></button></td>
+                    <td class="skill-attribute">
+                        <select class="inputfield" type="text" style="width: 90px; margin-top:8px" name="attr_skillAttribute">
+                            <option value="0" disabled hidden selected></option>
+                            <option value="@{strength}" style="color:white;background:#000000;">Strength</option>
+                            <option value="@{dexterity}" style="color:white;background:#000000;">Dexterity</option>
+                            <option value="@{constitution}" style="color:white;background:#000000;">Constitution</option>
+                            <option value="@{intelligence}" style="color:white;background:#000000;">Intelligence</option>
+                            <option value="@{wisdom}" style="color:white;background:#000000;">Wisdom</option>
+                            <option value="@{charisma}" style="color:white;background:#000000;">Charisma</option>
+                        </select>
+                    </td>
+                    <td class="skill-input"><input class="inputfield text" style="width: 50px;" type="number" value="0" name="attr_skillVI" min="0" max="999"/></td>
+                    <td class="skill-input"><input class="inputfield text" style="width: 50px;" type="number" value="0" name="attr_skillCause" min="0" max="999"/></td>
+                    <td class="skill-input"><input class="inputfield text" style="width: 50px;" type="number" value="0" name="attr_skillMisc" min="0" max="999"/></td>
+                    <td class="skill-progression">
+                        <select class="text dropdown grey" type="text" name="attr_skillProgression">
+                            <option style="color:white;background:#000000;">1,2,3,4</option>
+                            <option style="color:white;background:#000000;">2,3,4,5</option>
+                            <option style="color:white;background:#000000;">3,4,5,6</option>
+                            <option style="color:white;background:#000000;">4,5,6,7</option>
+                            <option style="color:white;background:#000000;">3,3,3,3</option>
+                            <option style="color:white;background:#000000;">1,2,3,4,5...</option>
+                        </select>
+                    </td>
+                    <td class="skill-input"><input class="inputfield text" style="width: 50px;" type="number" default="0" name="attr_skillPoints" min="0" max="999"/></td>
+                </tr>
+            </table>                                
+        </div>
+
+    </div>
+</fieldset>
+                </div>
+            </div>
+    	</div>
+    </div>
+
+
+
+    <input type="checkbox" class="tab tab9" name="attr_core-tab9" value="9" title="Inventory" />
+    <span class="tab tab9" style='line-height: 40px;'>Inventory</span>
+    <div class="section-inventory">
+        <div class="outer-container">
+            <div class="internal-container text flex">
+				<table class="table-wide">
+					<tr>
+					    <th width="200px">Item</th>
+						<th width="100px">Weight</th>
+						<th width="100px">Quantity</th>
+					</tr>
+				</table>
+				<fieldset class='repeating_inventory'>
+					<table class="table-wide">
+						<tr>
+							<td><input class="inputfield text blue-color" style="width: 200px;" type="text" name="attr_item"/></td>
+							<td><input class="inputfield text blue-color" style="width: 90px;" type="number" name="attr_weight"/> kg</td>
+							<td><input class="inputfield text blue-color" style="width: 100px;" type="number" name="attr_quantity"/></td>
+						</tr>
+					</table>
+				</fieldset>
+				<table class="table-wide">
+					<tr>
+					    <th width="100px">Total weight</th>
+						<th width="100px">Encumbrance</th>
+					</tr>
+					<tr>
+					    <th width="100px"><span name="attr_totalWeight"></span></th>
+						<th width="100px"><span name="attr_encumbrance"></span></th>
+					</tr>
+				</table>
+            </div>
+        </div>
+	</div>
+
+
+
+    <input type="checkbox" class="tab tab5" name="attr_core-tab5" value="5" title="Combat" />
+    <span class="tab tab5" style='line-height: 40px;'>Combat</span>
+    <!-- TODO -->
+    <div class="section-combat">
+        <div class="outer-container combat-outer-container">
+            <div class="internal-container text flex">
+                <div class="widget">
+                    <span class="goldenHeading">Offense</span><br />
+                    <div class="widget borderedContainer">
+                        <span class="subheading">Actions/round</span> <span class="subheading" name="attr_actionPoints"></span>
+                    </div>
+                    <div class="widget borderedContainer">
+                        <span class="subheading">Ranged</span><br />
+                        <table>
+                            <tr>
+                                <td>Weapon</td>
+                                <td colspan="3"><input class="inputfield text gold-color" style="width: 200px;" type="text" name="attr_rangedWeapon" min="0" max="9999"/></td>
+                            </tr>
+                            <tr>
+                                <td>Damage</td>
+                                <td><input class="inputfield text blue-color" style="width: 75px;" type="text" name="attr_rangedDamage" min="0" max="9999"/></td>
+                                <td>Hit bonus</td>
+                                <td><input class="inputfield text blue-color" style="width: 75px;" type="number" name="attr_rangedHitBonus" min="0" max="9999"/></td>
+                            </tr>
+                            <tr>
+                                <td>P+</td>
+                                <td><input class="inputfield text blue-color" style="width: 75px;" type="number" name="attr_rangedPenetrationPlus" min="0" max="9999"/></td>
+                                <td>RoF</td>
+                                <td><input class="inputfield text blue-color" style="width: 75px;" type="text" name="attr_rangedRoF" min="0" max="9999"/></td>
+                            </tr>
+                            <tr>
+                                <td>Ammunition</td>
+                                <td><input class="inputfield text blue-color" style="width: 75px;" type="number" name="attr_rangedAmmunition" min="0" max="9999"/></td>
+                                <td>/</td>
+                                <td><input class="inputfield text blue-color" style="width: 75px;" type="number" name="attr_rangedAmmunition_max" min="0" max="9999"/></td>
+                            </tr>
+                            <tr>
+                                <td>Range</td>
+                                <td><input class="inputfield text blue-color" style="width: 75px;" type="number" name="attr_rangedRange" min="0" max="9999"/></td>
+                                <td>Skill</td>
+                                <td><input class="inputfield text blue-color" style="width: 75px;" type="text" name="attr_rangedSkill" min="0" max="9999"/></td>
+                            </tr>
+                        </table><br />
+                        <table>
+                            <tr> 
+        			            <td style="width:50px"><button class="blank-roll-button" type="roll" value="@{rangedRoll}" >Shoot</button></td>
+        			            <td style="width:50px"><button type="action" class="blank-roll-button" name="act_rangedAmmoReduce" >Ammo-</button></td>
+        			            <td style="width:50px"><button type="action" class="blank-roll-button" name="act_rangedAmmoReload" >Reload</button></td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="widget borderedContainer">
+                        <span class="subheading">Melee</span><br />
+                        <table>
+                            <tr>
+                                <td>Weapon</td>
+                                <td colspan="3"><input class="inputfield text gold-color" style="width: 200px;" type="text" name="attr_meleeWeapon" min="0" max="9999"/></td>
+                            </tr>
+                            <tr>
+                                <td>Damage</td>
+                                <td><input class="inputfield text blue-color" style="width: 75px;" type="text" name="attr_meleeDamage" min="0" max="9999"/></td>
+                                <td>Hit bonus</td>
+                                <td><input class="inputfield text blue-color" style="width: 75px;" type="number" name="attr_meleeHitBonus" min="0" max="9999"/></td>
+                            </tr>
+                            <tr>
+                                <td>P+</td>
+                                <td><input class="inputfield text blue-color" style="width: 75px;" type="number" name="attr_meleePenetrationPlus" min="0" max="9999"/></td>
+                                <td>RoF</td>
+                                <td><input class="inputfield text blue-color" style="width: 75px;" type="text" name="attr_meleeRoF" min="0" max="9999"/></td>
+                            </tr>
+                            <tr>
+                                <td>Ammunition</td>
+                                <td><input class="inputfield text blue-color" style="width: 75px;" type="number" name="attr_meleeAmmunition" min="0" max="9999"/></td>
+                                <td>/</td>
+                                <td><input class="inputfield text blue-color" style="width: 75px;" type="number" name="attr_meleeAmmunition_max" min="0" max="9999"/></td>
+                            </tr>
+                            <tr>
+                                <td>Range</td>
+                                <td><input class="inputfield text blue-color" style="width: 75px;" type="number" name="attr_meleeRange" min="0" max="9999"/></td>
+                                <td>Skill</td>
+                                <td><input class="inputfield text blue-color" style="width: 75px;" type="text" name="attr_meleeSkill" min="0" max="9999"/></td>
+                            </tr>
+                        </table><br />
+                        <table>
+                            <tr>
+        			            <td style="width:50px"><button class="blank-roll-button" type="roll" value="@{meleeRoll}" >Strike</button></td>
+        			            <td style="width:50px"><button type="action" class="blank-roll-button" name="act_meleeAmmoReduce" >Ammo-</button></td>
+        			            <td style="width:50px"><button type="action" class="blank-roll-button" name="act_meleeAmmoReload" >Reload</button></td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+                <div class="widget">
+                    <span class="goldenHeading">Defense</span><br />
+                    <div class="widget borderedContainer">
+                        <span class="subheading">Defense</span><br />
+                        <table>
+                            <tr>
+                                <td>Ranged Def</td>
+                                <td><span class="subheading" name="attr_rangedDefense"></span></td>
+                                <td>Melee Def</td>
+                                <td><span class="subheading" name="attr_meleeDefense"></span></td>
+                            </tr>
+                            <tr>
+                                <td>Mental Def</td>
+                                <td><span class="subheading" name="attr_mentalDefense"></span></td>
+                                <td>CDS</td>
+                                <td><span class="subheading" name="attr_CDS"></span></td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="widget borderedContainer">
+                        <span class="subheading">Health</span><br />
+                        <table>
+                            <tr>
+                                <td>HP</td>
+                                <td><input class="inputfield text blue-color" style="width: 75px;" type="number" name="attr_health" min="0" max="9999"/></td>
+                                <td>/</td>
+                                <td><span class="subheading" name="attr_health_max"></span></td>
+                            </tr>
+                            <tr>
+                                <td>P+</td>
+                                <td><span class="subheading" name="attr_penetrationPlus"></span></td>
+                                <td>Regen</td>
+                                <td><span class="subheading" name="attr_regen"></span></td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="widget borderedContainer">
+                        <span class="subheading">Armor</span><br />
+                        <table>
+                            <tr>
+                                <td>Armor</td>
+                                <td colspan="3"><input class="inputfield text gold-color" style="width: 200px;" type="text" name="attr_armorName" min="0" max="9999"/></td>
+                            </tr>
+                            <tr>
+                                <td>HP</td>
+                                <td><input class="inputfield text blue-color" style="width: 75px;" type="number" name="attr_armorHealth" min="0" max="9999"/></td>
+                                <td>/</td>
+                                <td><input class="inputfield text blue-color" style="width: 75px;" type="number" name="attr_armorHealth_max" min="0" max="9999"/></td>
+                            </tr>
+                            <tr>
+                                <td>P+</td>
+                                <td><input class="inputfield text blue-color" style="width: 75px;" type="number" name="attr_armorPenetrationPlus" min="0" max="9999"/></td>
+                                <td>Regen</td>
+                                <td><input class="inputfield text blue-color" style="width: 75px;" type="number" name="attr_armorRegen" min="0" max="9999"/></td>
+                            </tr>
+                            <tr>
+                                <td>Type</td>
+                                <td><input class="inputfield text blue-color" style="width: 75px;" type="text" name="attr_armorType" min="0" max="9999"/></td>
+                                <td>Constitution</td>
+                                <td><input class="inputfield text blue-color" style="width: 75px;" type="number" name="attr_armorConstitution" min="0" max="9999"/></td>
+                            </tr>
+                            <tr>
+                                <td>Battery</td>
+                                <td><input class="inputfield text blue-color" style="width: 75px;" type="number" name="attr_armorBattery" min="0" max="9999"/></td>
+                                <td>/</td>
+                                <td><input class="inputfield text blue-color" style="width: 75px;" type="number" name="attr_armorBattery_max" min="0" max="9999"/></td>
+                            </tr>
+                            <tr>
+                                <td>Drain</td>
+                                <td><input class="inputfield text blue-color" style="width: 75px;" type="number" name="attr_armorBatteryDrain" min="0" max="9999"/></td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="widget borderedContainer">
+                        <span class="subheading">Shields</span><br />
+                        <table>
+                            <tr>
+                                <td>Armor</td>
+                                <td colspan="3"><input class="inputfield text gold-color" style="width: 200px;" type="text" name="attr_shieldsName" min="0" max="9999"/></td>
+                            </tr>
+                            <tr>
+                                <td>HP</td>
+                                <td><input class="inputfield text blue-color" style="width: 75px;" type="number" name="attr_shieldsHealth" min="0" max="9999"/></td>
+                                <td>/</td>
+                                <td><input class="inputfield text blue-color" style="width: 75px;" type="number" name="attr_shieldsHealth_max" min="0" max="9999"/></td>
+                            </tr>
+                            <tr>
+                                <td>P+</td>
+                                <td><input class="inputfield text blue-color" style="width: 75px;" type="number" name="attr_shieldsPenetrationPlus" min="0" max="9999"/></td>
+                            </tr>
+                            <tr>
+                                <td>Regen</td>
+                                <td><input class="inputfield text blue-color" style="width: 75px;" type="number" name="attr_shieldsRegen" min="0" max="9999"/></td>
+                            </tr>
+                            <tr>
+                                <td>Battery</td>
+                                <td><input class="inputfield text blue-color" style="width: 75px;" type="number" name="attr_shieldsBattery" min="0" max="9999"/></td>
+                                <td>/</td>
+                                <td><input class="inputfield text blue-color" style="width: 75px;" type="number" name="attr_shieldsBattery_max" min="0" max="9999"/></td>
+                            </tr>
+                            <tr>
+                                <td>Drain</td>
+                                <td><input class="inputfield text blue-color" style="width: 75px;" type="number" name="attr_shieldsDrain" min="0" max="9999"/></td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+	</div>
+
+
+
+    <input type="checkbox" class="tab tab6" name="attr_core-tab6" value="6" title="Armor" />
+    <span class="tab tab6" style='line-height: 40px;'>Armor</span>
+    <div class="section-armor">
+        <div class="outer-container">
+            <div class="internal-container text flex">
+                <fieldset class='repeating_armor'>
+    				<div class="widget borderedContainer flex">
+    					<input class='sheet-schematic-toggle' type='hidden' name='attr_toggle-schematic' checked></input>
+    					<input class='sheet-diceCount-toggle' type='hidden' name='attr_toggle-diceCount'></input>
+    					<input class='sheet-diceType-toggle' type='hidden' name='attr_toggle-diceType'></input>
+    					<input class='sheet-damageBonus-toggle' type='hidden' name='attr_toggle-damageBonus'></input>
+    					<input class='sheet-rangeSquare-toggle' type='hidden' name='attr_toggle-rangeSquare'></input>
+    					<input class='sheet-targetingBonus-toggle' type='hidden' name='attr_toggle-targetingBonus'></input>
+    					<input class='sheet-rateOfFire-toggle' type='hidden' name='attr_toggle-rateOfFire'></input>
+    					<input class='sheet-ammoCapacity-toggle' type='hidden' name='attr_toggle-ammoCapacity'></input>
+    					<input class='sheet-weight-toggle' type='hidden' name='attr_toggle-weight'></input>
+    					<input class='sheet-misc-toggle' type='hidden' name='attr_toggle-misc'></input>
+            			
+            			<div class="widget">
+            			    <table class="table-wide">
+            			        <tr>
+            			            <td style="width:50px"><button type="action" name="act_TODO" >Equip</button></td>
+            			            <td>
+                                        <span class="goldenHeading" name="attr_weaponName"></span>
+            			            </td>
+            			            <td style="width:90px">
+                            			<input type='checkbox' name='attr_toggle-schematic' value="1"> Schematic</input> 
+            			            </td>
+            			        </tr>
+            			    </table>
+            			</div>
+
+	    				<div class="widget sheet-section-schematic">
+							<span class="subheading">Armor schematic</span><br />
+							<table class="table-wide">
+								<tr>
+								    <td class="weapon-type">
+            							<span class="subsubheading">Name </span>
+								    </td>
+									<td class="weapon-name">
+            							<input class="inputfield" style="width: 270px;" type="text" name="attr_weaponName"/><br />
+								    </td>
+								</tr>
+							</table>
+							<table>
+								<tr>
+									<td class="weapon-type">
+									    <span class="subsubheading">Dice Count </span>
+									    <input type='checkbox' name='attr_toggle-diceCount' value="1"></input> 
+								    </td>
+									<td class="weapon-points">
+									    <input class="inputfield text" style="width: 50px;" type="number" name="attr_diceCount" min="0" max="999"/>
+								    </td>
+									<td class="weapon-type">
+									    <span class="subsubheading">Dice Type </span>
+									    <input type='checkbox' name='attr_toggle-diceType' value="1"></input> 
+								    </td>
+									<td class="weapon-points">
+									    <input class="inputfield text" style="width: 50px;" type="text" name="attr_diceType" min="0" max="999"/>
+								    </td>
+								</tr>
+								<tr>
+									<td class="weapon-type">
+									    <span class="subsubheading">Penetration Plus </span>
+									    <input type='checkbox' name='attr_toggle-penetrationPlus' value="1"></input> 
+								    </td>
+									<td class="weapon-points">
+									    <input class="inputfield text" style="width: 50px;" type="number" name="attr_penetrationPlus" min="0" max="999"/>
+									</td>
+									<td class="weapon-type">
+									    <span class="subsubheading">Range Square </span>
+                                        <input type='checkbox' name='attr_toggle-rangeSquare' value="1"></input> 
+								    </td>
+									<td class="weapon-points">
+									    <input class="inputfield text" style="width: 50px;" type="number" name="attr_rangeSquare" min="0" max="999"/>
+								    </td>
+								</tr>
+								<tr>
+									<td class="weapon-type">
+									    <span class="subsubheading">Targeting Bonus </span>
+                                        <input type='checkbox' name='attr_toggle-targetingBonus' value="1"></input> 
+								    </td>
+									<td class="weapon-points">
+									    <input class="inputfield text" style="width: 50px;" type="number" name="attr_targetingBonus" min="0" max="999"/>
+								    </td>
+									<td class="weapon-type">
+									    <span class="subsubheading">Rate of Fire </span>
+                                        <input type='checkbox' name='attr_toggle-rateOfFire' value="1"></input> 
+								    </td>
+									<td class="weapon-points">
+									    <input class="inputfield text" style="width: 50px;" type="text" name="attr_rateOfFire" min="0" max="999"/>
+								    </td>
+								</tr>
+								<tr>
+									<td class="weapon-type">
+									    <span class="subsubheading">Ammo Capacity </span>
+                                        <input type='checkbox' name='attr_toggle-ammoCapacity' value="1"></input> 
+								    </td>
+									<td class="weapon-points">
+									    <input class="inputfield text" style="width: 50px;" type="number" name="attr_ammoCapacity" min="0" max="999"/>
+								    </td>
+									<td class="weapon-type">
+									    <span class="subsubheading">Weight </span>
+                                        <input type='checkbox' name='attr_toggle-weight' value="1"></input> 
+								    </td>
+									<td class="weapon-points">
+									    <input class="inputfield text" style="width: 50px;" type="number" name="attr_weight" min="0" max="999"/>
+								    </td>
+								</tr>
+							</table>
+							<table class="table-wide">
+								<tr>
+								    <td class="weapon-type">
+            							<span class="subsubheading">Misc </span>
+                                        <input type='checkbox' name='attr_toggle-misc' value="1"></input> 
+								    </td>
+									<td class="weapon-name">
+            							<input class="inputfield" style="width: 270px;" type="text" name="attr_weaponMisc"/><br />
+								    </td>
+								</tr>
+							</table>
+						</div>
+						
+                        <div class="widget sheet-section-diceCount less-margin" style="width:330px">
+                            <table>
+                                <tr>
+                                    <td class="weapon-type">&nbsp;</td>
+                                    <td class="weapon-base">Base</td>
+                                    <td class="weapon-points">Points</td>
+                                    <td class="weapon-result">Result</td>
+                                </tr>
+                            </table>
+                        </div>
+                        
+                        <div class="widget sheet-section-diceCount less-margin" style="width:330px">
+                            <table class="text">
+                                <tr>
+                                    <td class="weapon-type">&nbsp;</td>
+                                    <td class="weapon-base">Base</td>
+                                    <td class="weapon-points">Points</td>
+                                    <td class="weapon-result">Result</td>
+                                </tr>
+                            </table>
+                        </div>
+                        
+                        <div class="widget sheet-section-diceCount less-margin" style="width:330px">
+                            <table class="text">
+                                <tr>
+                                    <td class="weapon-type">Dice Count</td>
+                                    <td class="weapon-base">&nbsp;<span name="attr_diceCount"></span></td>
+                                    <td class="weapon-points"><input class="inputfield text" style="width: 50px;" type="number" name="attr_diceCountPoints" min="0" max="999"/></input></td>
+                                    <td class="weapon-result">&nbsp;<span name="attr_diceCountResult"></span></td>
+                                </tr>
+                            </table>
+                        </div>
+                        
+                        <div class="widget sheet-section-diceType less-margin" style="width:330px">
+                            <table class="text">
+                                <tr>
+                                    <td class="weapon-type">Dice Type</td>
+                                    <td class="weapon-base">&nbsp;<span name="attr_diceType"></span></td>
+                                    <td class="weapon-points"><input class="inputfield text" style="width: 50px;" type="number" name="attr_diceTypePoints" min="0" max="999"/></input></td>
+                                    <td class="weapon-result">&nbsp;<span class="goldenHeading" name="attr_diceCountResult"></span></td>
+                                </tr>
+                            </table>
+                        </div>
+                        
+                        <div class="widget sheet-section-penetrationPlus less-margin" style="width:330px">
+                            <table class="text">
+                                <tr>
+                                    <td class="weapon-type">Penetration Plus</td>
+                                    <td class="weapon-base">&nbsp;<span name="attr_penetrationPlus"></span></td>
+                                    <td class="weapon-points"><input class="inputfield text" style="width: 50px;" type="number" name="attr_penetrationPlusPoints" min="0" max="999"/></input></td>
+                                    <td class="weapon-result">&nbsp;<span name="attr_penetrationPlusResult"></span></td>
+                                </tr>
+                            </table>
+                        </div>
+                        
+                        <div class="widget sheet-section-rangeSquare less-margin" style="width:330px">
+                            <table class="text">
+                                <tr>
+                                    <td class="weapon-type">Range Square</td>
+                                    <td class="weapon-base"> &nbsp;<span name="attr_rangeSquare"></span></td>
+                                    <td class="weapon-points"><input class="inputfield text" style="width: 50px;" type="number" name="attr_rangeSquarePoints" min="0" max="999"/></input></td>
+                                    <td class="weapon-result"> &nbsp;<span name="attr_rangeSquareResult"></span></td>
+                                </tr>
+                            </table>
+                        </div>
+                        
+                        <div class="widget sheet-section-targetingBonus less-margin" style="width:330px">
+                            <table class="text">
+                                <tr>
+                                    <td class="weapon-type">Targeting Bonus</td>
+                                    <td class="weapon-base"> &nbsp;<span name="attr_targetingBonus"></span></td>
+                                    <td class="weapon-points"><input class="inputfield text" style="width: 50px;" type="number" name="attr_targetBonusPoints" min="0" max="999"/></input></td>
+                                    <td class="weapon-result"> &nbsp;<span name="attr_targetingBonusResult"></span></td>
+                                </tr>
+                            </table>
+                        </div>
+                        
+                        <div class="widget sheet-section-rateOfFire less-margin" style="width:330px">
+                            <table class="text">
+                                <tr>
+                                    <td class="weapon-type">Rate of fire</td>
+                                    <td class="weapon-base"> &nbsp;<span name="attr_rateOfFire"></span></td>
+                                    <td class="weapon-points"><input class="inputfield text" style="width: 50px;" type="number" name="attr_rateOfFirePoints" min="0" max="999"/></td>
+                                    <td class="weapon-result"> &nbsp;<span name="attr_rateOfFireResult"></span></td>
+                                </tr>
+                            </table>
+                        </div>
+                        
+                        <div class="widget sheet-section-ammoCapacity less-margin" style="width:330px">
+                            <table class="text">
+                                <tr>
+                                    <td class="weapon-type">Ammo capacity</td>
+                                    <td class="weapon-base"> &nbsp;<span name="attr_ammoCapacity"></span></td>
+                                    <td class="weapon-points"><input class="inputfield text" style="width: 50px;" type="number" name="attr_ammoCapacityPoints" min="0" max="999"/></td>
+                                    <td class="weapon-result"> &nbsp;<span name="attr_ammoCapacityResult"></span></td>
+                                </tr>
+                            </table>
+                        </div>
+                        
+                        <div class="widget sheet-section-weight less-margin" style="width:330px">
+                            <table class="text">
+                                <tr>
+                                    <td class="weapon-type">Weight</td>
+                                    <td class="weapon-base"> &nbsp;<span name="attr_weight"></span></td>
+                                    <td class="weapon-points"><input class="inputfield text" style="width: 50px;" type="number" name="attr_weightPoints" min="0" max="999"/></td>
+                                    <td class="weapon-result"> &nbsp;<span name="attr_weightResult"></span></td>
+                                </tr>
+                            </table>
+                        </div>
+                        
+                        <div class="widget sheet-section-misc less-margin" style="width:650px">
+                            <table class="text">
+                                <tr>
+                                    <td class="weapon-type">Misc</td>
+                                    <td style="width:595px"> &nbsp;<span name="attr_weaponMisc"></span></td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </fieldset>
+			</div>
+        </div>
+    </div>
+
+
+
+    <input type="checkbox" class="tab tab7" name="attr_core-tab7" value="7" title="Melee" />
+    <span class="tab tab7" style='line-height: 40px;'>Melee</span>
+    <div class="section-melee">
+        <div class="outer-container">
+            <div class="internal-container text flex">
+                <fieldset class='repeating_melee'>
+    				<div class="widget borderedContainer flex">
+    					<input class='sheet-schematic-toggle' type='hidden' name='attr_toggle-schematic' checked></input>
+    					<input class='sheet-diceCount-toggle' type='hidden' name='attr_toggle-diceCount'></input>
+    					<input class='sheet-diceType-toggle' type='hidden' name='attr_toggle-diceType'></input>
+    					<input class='sheet-penetrationPlus-toggle' type='hidden' name='attr_toggle-penetrationPlus'></input>
+    					<input class='sheet-rangeSquare-toggle' type='hidden' name='attr_toggle-rangeSquare'></input>
+    					<input class='sheet-targetingBonus-toggle' type='hidden' name='attr_toggle-targetingBonus'></input>
+    					<input class='sheet-rateOfFire-toggle' type='hidden' name='attr_toggle-rateOfFire'></input>
+    					<input class='sheet-ammoCapacity-toggle' type='hidden' name='attr_toggle-ammoCapacity'></input>
+    					<input class='sheet-weight-toggle' type='hidden' name='attr_toggle-weight'></input>
+    					<input class='sheet-misc-toggle' type='hidden' name='attr_toggle-misc'></input>
+            			
+            			<div class="widget">
+            			    <table class="table-wide">
+            			        <tr>
+            			            <td style="width:50px"><button type="action" name="act_TODO" >Equip</button></td>
+            			            <td>
+                                        <span class="goldenHeading" name="attr_weaponName"></span>
+            			            </td>
+            			            <td style="width:90px">
+                            			<input type='checkbox' name='attr_toggle-schematic' value="1"> Schematic</input> 
+            			            </td>
+            			        </tr>
+            			    </table>
+            			</div>
+
+	    				<div class="widget sheet-section-schematic">
+							<span class="subheading">Weapon schematic</span><br />
+							<table class="table-wide">
+								<tr>
+								    <td class="weapon-type">
+            							<span class="subsubheading">Name </span>
+								    </td>
+									<td class="weapon-name">
+            							<input class="inputfield" style="width: 270px;" type="text" name="attr_weaponName"/><br />
+								    </td>
+								</tr>
+							</table>
+							<table>
+								<tr>
+									<td class="weapon-type">
+									    <span class="subsubheading">Dice Count </span>
+									    <input type='checkbox' name='attr_toggle-diceCount' value="1"></input> 
+								    </td>
+									<td class="weapon-points">
+									    <input class="inputfield text" style="width: 50px;" type="number" name="attr_diceCount" min="0" max="999"/>
+								    </td>
+									<td class="weapon-type">
+									    <span class="subsubheading">Dice Type </span>
+									    <input type='checkbox' name='attr_toggle-diceType' value="1"></input> 
+								    </td>
+									<td class="weapon-points">
+									    <input class="inputfield text" style="width: 50px;" type="text" name="attr_diceType" min="0" max="999"/>
+								    </td>
+								</tr>
+								<tr>
+									<td class="weapon-type">
+									    <span class="subsubheading">Penetration Plus </span>
+									    <input type='checkbox' name='attr_toggle-penetrationPlus' value="1"></input> 
+								    </td>
+									<td class="weapon-points">
+									    <input class="inputfield text" style="width: 50px;" type="number" name="attr_penetrationPlus" min="0" max="999"/>
+									</td>
+									<td class="weapon-type">
+									    <span class="subsubheading">Range Square </span>
+                                        <input type='checkbox' name='attr_toggle-rangeSquare' value="1"></input> 
+								    </td>
+									<td class="weapon-points">
+									    <input class="inputfield text" style="width: 50px;" type="number" name="attr_rangeSquare" min="0" max="999"/>
+								    </td>
+								</tr>
+								<tr>
+									<td class="weapon-type">
+									    <span class="subsubheading">Targeting Bonus </span>
+                                        <input type='checkbox' name='attr_toggle-targetingBonus' value="1"></input> 
+								    </td>
+									<td class="weapon-points">
+									    <input class="inputfield text" style="width: 50px;" type="number" name="attr_targetingBonus" min="0" max="999"/>
+								    </td>
+									<td class="weapon-type">
+									    <span class="subsubheading">Rate of Fire </span>
+                                        <input type='checkbox' name='attr_toggle-rateOfFire' value="1"></input> 
+								    </td>
+									<td class="weapon-points">
+									    <input class="inputfield text" style="width: 50px;" type="text" name="attr_rateOfFire" min="0" max="999"/>
+								    </td>
+								</tr>
+								<tr>
+									<td class="weapon-type">
+									    <span class="subsubheading">Ammo Capacity </span>
+                                        <input type='checkbox' name='attr_toggle-ammoCapacity' value="1"></input> 
+								    </td>
+									<td class="weapon-points">
+									    <input class="inputfield text" style="width: 50px;" type="number" name="attr_ammoCapacity" min="0" max="999"/>
+								    </td>
+									<td class="weapon-type">
+									    <span class="subsubheading">Weight </span>
+                                        <input type='checkbox' name='attr_toggle-weight' value="1"></input> 
+								    </td>
+									<td class="weapon-points">
+									    <input class="inputfield text" style="width: 50px;" type="number" name="attr_weight" min="0" max="999"/>
+								    </td>
+								</tr>
+							</table>
+							<table class="table-wide">
+								<tr>
+								    <td class="weapon-type">
+            							<span class="subsubheading">Misc </span>
+                                        <input type='checkbox' name='attr_toggle-misc' value="1"></input> 
+								    </td>
+									<td class="weapon-name">
+            							<input class="inputfield" style="width: 270px;" type="text" name="attr_weaponMisc"/><br />
+								    </td>
+								</tr>
+							</table>
+						</div>
+						
+                        <div class="widget sheet-section-diceCount less-margin" style="width:330px">
+                            <table>
+                                <tr>
+                                    <td class="weapon-type">&nbsp;</td>
+                                    <td class="weapon-base">Base</td>
+                                    <td class="weapon-points">Points</td>
+                                    <td class="weapon-result">Result</td>
+                                </tr>
+                            </table>
+                        </div>
+                        
+                        <div class="widget sheet-section-diceCount less-margin" style="width:330px">
+                            <table class="text">
+                                <tr>
+                                    <td class="weapon-type">&nbsp;</td>
+                                    <td class="weapon-base">Base</td>
+                                    <td class="weapon-points">Points</td>
+                                    <td class="weapon-result">Result</td>
+                                </tr>
+                            </table>
+                        </div>
+                        
+                        <div class="widget sheet-section-diceCount less-margin" style="width:330px">
+                            <table class="text">
+                                <tr>
+                                    <td class="weapon-type">Dice Count</td>
+                                    <td class="weapon-base">&nbsp;<span name="attr_diceCount"></span></td>
+                                    <td class="weapon-points"><input class="inputfield text" style="width: 50px;" type="number" name="attr_diceCountPoints" min="0" max="999"/></input></td>
+                                    <td class="weapon-result">&nbsp;<span name="attr_diceCountResult"></span></td>
+                                </tr>
+                            </table>
+                        </div>
+                        
+                        <div class="widget sheet-section-diceType less-margin" style="width:330px">
+                            <table class="text">
+                                <tr>
+                                    <td class="weapon-type">Dice Type</td>
+                                    <td class="weapon-base">&nbsp;<span name="attr_diceType"></span></td>
+                                    <td class="weapon-points"><input class="inputfield text" style="width: 50px;" type="number" name="attr_diceTypePoints" min="0" max="999"/></input></td>
+                                    <td class="weapon-result">&nbsp;<span class="goldenHeading" name="attr_diceCountResult"></span></td>
+                                </tr>
+                            </table>
+                        </div>
+                        
+                        <div class="widget sheet-section-penetrationPlus less-margin" style="width:330px">
+                            <table class="text">
+                                <tr>
+                                    <td class="weapon-type">Penetration Plus</td>
+                                    <td class="weapon-base">&nbsp;<span name="attr_penetrationPlus"></span></td>
+                                    <td class="weapon-points"><input class="inputfield text" style="width: 50px;" type="number" name="attr_penetrationPlusPoints" min="0" max="999"/></input></td>
+                                    <td class="weapon-result">&nbsp;<span name="attr_penetrationPlusResult"></span></td>
+                                </tr>
+                            </table>
+                        </div>
+                        
+                        <div class="widget sheet-section-rangeSquare less-margin" style="width:330px">
+                            <table class="text">
+                                <tr>
+                                    <td class="weapon-type">Range Square</td>
+                                    <td class="weapon-base"> &nbsp;<span name="attr_rangeSquare"></span></td>
+                                    <td class="weapon-points"><input class="inputfield text" style="width: 50px;" type="number" name="attr_rangeSquarePoints" min="0" max="999"/></input></td>
+                                    <td class="weapon-result"> &nbsp;<span name="attr_rangeSquareResult"></span></td>
+                                </tr>
+                            </table>
+                        </div>
+                        
+                        <div class="widget sheet-section-targetingBonus less-margin" style="width:330px">
+                            <table class="text">
+                                <tr>
+                                    <td class="weapon-type">Targeting Bonus</td>
+                                    <td class="weapon-base"> &nbsp;<span name="attr_targetingBonus"></span></td>
+                                    <td class="weapon-points"><input class="inputfield text" style="width: 50px;" type="number" name="attr_targetBonusPoints" min="0" max="999"/></input></td>
+                                    <td class="weapon-result"> &nbsp;<span name="attr_targetingBonusResult"></span></td>
+                                </tr>
+                            </table>
+                        </div>
+                        
+                        <div class="widget sheet-section-rateOfFire less-margin" style="width:330px">
+                            <table class="text">
+                                <tr>
+                                    <td class="weapon-type">Rate of fire</td>
+                                    <td class="weapon-base"> &nbsp;<span name="attr_rateOfFire"></span></td>
+                                    <td class="weapon-points"><input class="inputfield text" style="width: 50px;" type="number" name="attr_rateOfFirePoints" min="0" max="999"/></td>
+                                    <td class="weapon-result"> &nbsp;<span name="attr_rateOfFireResult"></span></td>
+                                </tr>
+                            </table>
+                        </div>
+                        
+                        <div class="widget sheet-section-ammoCapacity less-margin" style="width:330px">
+                            <table class="text">
+                                <tr>
+                                    <td class="weapon-type">Ammo capacity</td>
+                                    <td class="weapon-base"> &nbsp;<span name="attr_ammoCapacity"></span></td>
+                                    <td class="weapon-points"><input class="inputfield text" style="width: 50px;" type="number" name="attr_ammoCapacityPoints" min="0" max="999"/></td>
+                                    <td class="weapon-result"> &nbsp;<span name="attr_ammoCapacityResult"></span></td>
+                                </tr>
+                            </table>
+                        </div>
+                        
+                        <div class="widget sheet-section-weight less-margin" style="width:330px">
+                            <table class="text">
+                                <tr>
+                                    <td class="weapon-type">Weight</td>
+                                    <td class="weapon-base"> &nbsp;<span name="attr_weight"></span></td>
+                                    <td class="weapon-points"><input class="inputfield text" style="width: 50px;" type="number" name="attr_weightPoints" min="0" max="999"/></td>
+                                    <td class="weapon-result"> &nbsp;<span name="attr_weightResult"></span></td>
+                                </tr>
+                            </table>
+                        </div>
+                        
+                        <div class="widget sheet-section-misc less-margin" style="width:650px">
+                            <table class="text">
+                                <tr>
+                                    <td class="weapon-type">Misc</td>
+                                    <td style="width:595px"> &nbsp;<span name="attr_weaponMisc"></span></td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </fieldset>
+			</div>
+        </div>
+    </div>
+
+
+
+    <input type="checkbox" class="tab tab8" name="attr_core-tab8" value="8" title="Ranged" />
+    <span class="tab tab8" style='line-height: 40px;'>Ranged</span>
+    <div class="section-ranged">
+        <div class="outer-container">
+            <div class="internal-container text flex">
+                <fieldset class='repeating_ranged'>
+    				<div class="widget borderedContainer flex">
+    					<input class='sheet-schematic-toggle' type='hidden' name='attr_toggle-schematic' checked></input>
+    					<input class='sheet-diceCount-toggle' type='hidden' name='attr_toggle-diceCount'></input>
+    					<input class='sheet-diceType-toggle' type='hidden' name='attr_toggle-diceType'></input>
+    					<input class='sheet-damageBonus-toggle' type='hidden' name='attr_toggle-damageBonus'></input>
+    					<input class='sheet-damageMultiplier-toggle' type='hidden' name='attr_toggle-damageMultiplier'></input>
+    					<input class='sheet-penetrationPlus-toggle' type='hidden' name='attr_toggle-penetrationPlus'></input>
+    					<input class='sheet-penetrationPlus-toggle' type='hidden' name='attr_toggle-penetrationPlus'></input>
+    					<input class='sheet-rangeSquare-toggle' type='hidden' name='attr_toggle-rangeSquare'></input>
+    					<input class='sheet-targetingBonus-toggle' type='hidden' name='attr_toggle-targetingBonus'></input>
+    					<input class='sheet-rateOfFire-toggle' type='hidden' name='attr_toggle-rateOfFire'></input>
+    					<input class='sheet-ammoCapacity-toggle' type='hidden' name='attr_toggle-ammoCapacity'></input>
+    					<input class='sheet-weight-toggle' type='hidden' name='attr_toggle-weight'></input>
+    					<input class='sheet-misc-toggle' type='hidden' name='attr_toggle-misc'></input>
+            			
+            			<div class="widget">
+            			    <table class="table-wide">
+            			        <tr>
+            			            <td style="width:50px"><button type="action" name="act_TODO" >Equip</button></td>
+            			            <td>
+                                        <span class="goldenHeading" name="attr_weaponName"></span>
+            			            </td>
+            			            <td style="width:90px">
+                            			<input type='checkbox' name='attr_toggle-schematic' value="1"> Schematic</input> 
+            			            </td>
+            			        </tr>
+            			    </table>
+            			</div>
+
+	    				<div class="widget sheet-section-schematic">
+							<span class="subheading">Weapon schematic</span><br />
+							<table class="table-wide">
+								<tr>
+								    <td class="weapon-type">
+            							<span class="subsubheading">Name </span>
+								    </td>
+									<td class="weapon-name">
+            							<input class="inputfield" style="width: 270px;" type="text" name="attr_weaponName"/><br />
+								    </td>
+								</tr>
+							</table>
+							<table>
+								<tr>
+									<td class="weapon-type">
+									    <span class="subsubheading">Dice Count </span>
+									    <input type='checkbox' name='attr_toggle-diceCount' value="1"></input> 
+								    </td>
+									<td class="weapon-points">
+									    <input class="inputfield text" style="width: 50px;" type="number" name="attr_diceCount" min="0" max="999"/>
+								    </td>
+									<td class="weapon-type">
+									    <span class="subsubheading">Dice Type </span>
+									    <input type='checkbox' name='attr_toggle-diceType' value="1"></input> 
+								    </td>
+									<td class="weapon-points">
+									    <input class="inputfield text" style="width: 50px;" type="text" name="attr_diceType" min="0" max="999"/>
+								    </td>
+								</tr>
+								<tr>
+									<td class="weapon-type">
+									    <span class="subsubheading">Damage Bonus </span>
+									    <input type='checkbox' name='attr_toggle-damageBonus' value="1"></input> 
+								    </td>
+									<td class="weapon-points">
+									    <input class="inputfield text" style="width: 50px;" type="number" name="attr_damageBonus" min="0" max="999"/>
+								    </td>
+									<td class="weapon-type">
+									    <span class="subsubheading">Damage Multiplier </span>
+									    <input type='checkbox' name='attr_toggle-damageMultiplier' value="1"></input> 
+								    </td>
+									<td class="weapon-points">
+									    <input class="inputfield text" style="width: 50px;" type="text" name="attr_damageMultiplier" min="0" max="999"/>
+								    </td>
+								</tr>
+								<tr>
+									<td class="weapon-type">
+									    <span class="subsubheading">Penetration Plus </span>
+									    <input type='checkbox' name='attr_toggle-penetrationPlus' value="1"></input> 
+								    </td>
+									<td class="weapon-points">
+									    <input class="inputfield text" style="width: 50px;" type="number" name="attr_penetrationPlus" min="0" max="999"/>
+									</td>
+									<td class="weapon-type">
+									    <span class="subsubheading">Range Square </span>
+                                        <input type='checkbox' name='attr_toggle-rangeSquare' value="1"></input> 
+								    </td>
+									<td class="weapon-points">
+									    <input class="inputfield text" style="width: 50px;" type="number" name="attr_rangeSquare" min="0" max="999"/>
+								    </td>
+								</tr>
+								<tr>
+									<td class="weapon-type">
+									    <span class="subsubheading">Targeting Bonus </span>
+                                        <input type='checkbox' name='attr_toggle-targetingBonus' value="1"></input> 
+								    </td>
+									<td class="weapon-points">
+									    <input class="inputfield text" style="width: 50px;" type="number" name="attr_targetingBonus" min="0" max="999"/>
+								    </td>
+									<td class="weapon-type">
+									    <span class="subsubheading">Rate of Fire </span>
+                                        <input type='checkbox' name='attr_toggle-rateOfFire' value="1"></input> 
+								    </td>
+									<td class="weapon-points">
+									    <input class="inputfield text" style="width: 50px;" type="text" name="attr_rateOfFire" min="0" max="999"/>
+								    </td>
+								</tr>
+								<tr>
+									<td class="weapon-type">
+									    <span class="subsubheading">Ammo Capacity </span>
+                                        <input type='checkbox' name='attr_toggle-ammoCapacity' value="1"></input> 
+								    </td>
+									<td class="weapon-points">
+									    <input class="inputfield text" style="width: 50px;" type="number" name="attr_ammoCapacity" min="0" max="999"/>
+								    </td>
+									<td class="weapon-type">
+									    <span class="subsubheading">Weight </span>
+                                        <input type='checkbox' name='attr_toggle-weight' value="1"></input> 
+								    </td>
+									<td class="weapon-points">
+									    <input class="inputfield text" style="width: 50px;" type="number" name="attr_weight" min="0" max="999"/>
+								    </td>
+								</tr>
+							</table>
+							<table class="table-wide">
+								<tr>
+								    <td class="weapon-type">
+            							<span class="subsubheading">Misc </span>
+                                        <input type='checkbox' name='attr_toggle-misc' value="1"></input> 
+								    </td>
+									<td class="weapon-name">
+            							<input class="inputfield" style="width: 270px;" type="text" name="attr_weaponMisc"/><br />
+								    </td>
+								</tr>
+							</table>
+						</div>
+						
+                        <div class="widget less-margin" style="width:330px">
+                            <table>
+                                <tr>
+                                    <td class="weapon-type">&nbsp;</td>
+                                    <td class="weapon-base">Base</td>
+                                    <td class="weapon-points">Points</td>
+                                    <td class="weapon-progression">Progression</td>
+                                    <td class="weapon-result">Result</td>
+                                </tr>
+                            </table>
+                        </div>
+                        
+                        <div class="widget less-margin" style="width:330px">
+                            <table class="text">
+                                <tr>
+                                    <td class="weapon-type">&nbsp;</td>
+                                    <td class="weapon-base">Base</td>
+                                    <td class="weapon-points">Points</td>
+                                    <td class="weapon-progression">Progression</td>
+                                    <td class="weapon-result">Result</td>
+                                </tr>
+                            </table>
+                        </div>
+                        
+                        <div class="widget sheet-section-diceCount less-margin" style="width:330px">
+                            <table class="text">
+                                <tr>
+                                    <td class="weapon-type">Dice Count</td>
+                                    <td class="weapon-base">&nbsp;<span name="attr_diceCount"></span></td>
+                                    <td class="weapon-points"><input class="inputfield text" style="width: 50px;" type="number" name="attr_diceCountPoints" min="0" max="999"/></input></td>
+                                    <td class="weapon-progression"><input class="inputfield text" style="width: 75px;" type="text" name="attr_diceCountProgression" min="0" max="999"/></input></td>
+                                    <td class="weapon-result">&nbsp;<span name="attr_diceCountResult"></span></td>
+                                </tr>
+                            </table>
+                        </div>
+                        
+                        <div class="widget sheet-section-diceType less-margin" style="width:330px">
+                            <table class="text">
+                                <tr>
+                                    <td class="weapon-type">Dice Type</td>
+                                    <td class="weapon-base">&nbsp;<span name="attr_diceType"></span></td>
+                                    <td class="weapon-points"><input class="inputfield text" style="width: 50px;" type="number" name="attr_diceTypePoints" min="0" max="999"/></input></td>
+                                    <td class="weapon-progression"><input class="inputfield text" style="width: 75px;" type="text" name="attr_diceTypeProgression" min="0" max="999"/></input></td>
+                                    <td class="weapon-result">&nbsp;<span class="goldenHeading" name="attr_diceCountResult"></span></td>
+                                </tr>
+                            </table>
+                        </div>
+                        
+                        <div class="widget sheet-section-damageBonus less-margin" style="width:330px">
+                            <table class="text">
+                                <tr>
+                                    <td class="weapon-type">Damage Bonus</td>
+                                    <td class="weapon-base">&nbsp;<span name="attr_damageBonus"></span></td>
+                                    <td class="weapon-points"><input class="inputfield text" style="width: 50px;" type="number" name="attr_damageBonusPoints" min="0" max="999"/></input></td>
+                                    <td class="weapon-progression"><input class="inputfield text" style="width: 75px;" type="text" name="attr_damageBonusProgression" min="0" max="999"/></input></td>
+                                    <td class="weapon-result">&nbsp;<span class="goldenHeading" name="attr_damageBonusResult"></span></td>
+                                </tr>
+                            </table>
+                        </div>
+                        
+                        <div class="widget sheet-section-damageMultiplier less-margin" style="width:330px">
+                            <table class="text">
+                                <tr>
+                                    <td class="weapon-type">Damage Multiplier</td>
+                                    <td class="weapon-base">&nbsp;<span name="attr_damageMultiplier"></span></td>
+                                    <td class="weapon-points"><input class="inputfield text" style="width: 50px;" type="number" name="attr_damageMultiplierPoints" min="0" max="999"/></input></td>
+                                    <td class="weapon-progression"><input class="inputfield text" style="width: 75px;" type="text" name="attr_damageMultiplierProgression" min="0" max="999"/></input></td>
+                                    <td class="weapon-result">&nbsp;<span class="goldenHeading" name="attr_damageMultiplierResult"></span></td>
+                                </tr>
+                            </table>
+                        </div>
+                        
+                        <div class="widget sheet-section-penetrationPlus less-margin" style="width:330px">
+                            <table class="text">
+                                <tr>
+                                    <td class="weapon-type">Penetration Plus</td>
+                                    <td class="weapon-base">&nbsp;<span name="attr_penetrationPlus"></span></td>
+                                    <td class="weapon-points"><input class="inputfield text" style="width: 50px;" type="number" name="attr_penetrationPlusPoints" min="0" max="999"/></input></td>
+                                    <td class="weapon-progression"><input class="inputfield text" style="width: 75px;" type="text" name="attr_penetrationPlusProgression" min="0" max="999"/></input></td>
+                                    <td class="weapon-result">&nbsp;<span name="attr_penetrationPlusResult"></span></td>
+                                </tr>
+                            </table>
+                        </div>
+                        
+                        <div class="widget sheet-section-rangeSquare less-margin" style="width:330px">
+                            <table class="text">
+                                <tr>
+                                    <td class="weapon-type">Range Square</td>
+                                    <td class="weapon-base"> &nbsp;<span name="attr_rangeSquare"></span></td>
+                                    <td class="weapon-points"><input class="inputfield text" style="width: 50px;" type="number" name="attr_rangeSquarePoints" min="0" max="999"/></input></td>
+                                    <td class="weapon-progression"><input class="inputfield text" style="width: 75px;" type="text" name="attr_rangeSquareProgression" min="0" max="999"/></input></td>
+                                    <td class="weapon-result"> &nbsp;<span name="attr_rangeSquareResult"></span></td>
+                                </tr>
+                            </table>
+                        </div>
+                        
+                        <div class="widget sheet-section-targetingBonus less-margin" style="width:330px">
+                            <table class="text">
+                                <tr>
+                                    <td class="weapon-type">Targeting Bonus</td>
+                                    <td class="weapon-base"> &nbsp;<span name="attr_targetingBonus"></span></td>
+                                    <td class="weapon-points"><input class="inputfield text" style="width: 50px;" type="number" name="attr_targetBonusPoints" min="0" max="999"/></input></td>
+                                    <td class="weapon-progression"><input class="inputfield text" style="width: 75px;" type="text" name="attr_targetBonusProgression" min="0" max="999"/></input></td>
+                                    <td class="weapon-result"> &nbsp;<span name="attr_targetingBonusResult"></span></td>
+                                </tr>
+                            </table>
+                        </div>
+                        
+                        <div class="widget sheet-section-rateOfFire less-margin" style="width:330px">
+                            <table class="text">
+                                <tr>
+                                    <td class="weapon-type">Rate of fire</td>
+                                    <td class="weapon-base"> &nbsp;<span name="attr_rateOfFire"></span></td>
+                                    <td class="weapon-points"><input class="inputfield text" style="width: 50px;" type="number" name="attr_rateOfFirePoints" min="0" max="999"/></td>
+                                    <td class="weapon-progression"><input class="inputfield text" style="width: 75px;" type="text" name="attr_rateOfFireProgression" min="0" max="999"/></td>
+                                    <td class="weapon-result"> &nbsp;<span name="attr_rateOfFireResult"></span></td>
+                                </tr>
+                            </table>
+                        </div>
+                        
+                        <div class="widget sheet-section-ammoCapacity less-margin" style="width:330px">
+                            <table class="text">
+                                <tr>
+                                    <td class="weapon-type">Ammo capacity</td>
+                                    <td class="weapon-base"> &nbsp;<span name="attr_ammoCapacity"></span></td>
+                                    <td class="weapon-points"><input class="inputfield text" style="width: 50px;" type="number" name="attr_ammoCapacityPoints" min="0" max="999"/></td>
+                                    <td class="weapon-progression"><input class="inputfield text" style="width: 75px;" type="text" name="attr_ammoCapacityProgression" min="0" max="999"/></td>
+                                    <td class="weapon-result"> &nbsp;<span name="attr_ammoCapacityResult"></span></td>
+                                </tr>
+                            </table>
+                        </div>
+                        
+                        <div class="widget sheet-section-weight less-margin" style="width:330px">
+                            <table class="text">
+                                <tr>
+                                    <td class="weapon-type">Weight</td>
+                                    <td class="weapon-base"> &nbsp;<span name="attr_weight"></span></td>
+                                    <td class="weapon-points"><input class="inputfield text" style="width: 50px;" type="number" name="attr_weightPoints" min="0" max="999"/></td>
+                                    <td class="weapon-progression"><input class="inputfield text" style="width: 75px;" type="text" name="attr_weightProgression" min="0" max="999"/></td>
+                                    <td class="weapon-result"> &nbsp;<span name="attr_weightResult"></span></td>
+                                </tr>
+                            </table>
+                        </div>
+                        
+                        <div class="widget sheet-section-misc less-margin" style="width:650px">
+                            <table class="text">
+                                <tr>
+                                    <td class="weapon-type">Misc</td>
+                                    <td style="width:595px"> &nbsp;<span name="attr_weaponMisc"></span></td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </fieldset>
+			</div>
+        </div>
+    </div>
+
+
+
+    <input type="checkbox" class="tab tab10" name="attr_core-tab10" value="10" title="History" />
+    <span class="tab tab10" style='line-height: 40px;'>Notes</span>
+    <div class="section-notes">
+        <div class="outer-container">
+            <div class="internal-container text">
+                <div class="widget borderedContainer">
+                    <textarea class="onecolumntextarea" name="attr_notes"></textarea>
+                </div>
+            </div>
+        </div>
+	</div>
+
+
+
+</div>
+
+
+<!-- END OF HTML -->
+
+
+
+
+
+
+<script type="text/worker">
+
+
+
+/* --------------------------- FUNCTIONS -----------------------------------------------
+    These functions can be called by the watchers (further down) or each other. 
+*/
+
+
+
+
+function updatePointsSpent() {
+    /*
+        This function will be called upon by many different watchers, such as 
+        when you invest in a skill or invest in a primary attribute. 
+        As such, rather than duplicate similar code in each case, it is 
+        easily referenced as a function instead. 
+        
+        Input: nothing
+        Return: nothing
+    */ 
+    attributes = ['strengthPoints', 'dexterityPoints', 'constitutionPoints', 'intelligencePoints', 'wisdomPoints', 'charismaPoints',
+        'biologyPoints', 'businessPoints', 'chemistryPoints', 'tronicsPoints', 'lawPoints', 'physicsPoints', 'programmingPoints', 
+        'acrobaticsPoints', 'athleticsPoints', 'awarenessPoints', 'barterPoints', 'charmPoints', 'diplomacyPoints', 'fighterPilotPoints', 
+        'focusPoints', 'forgeryPoints', 'gatherInfoPoints', 'intimidatePoints', 'investigationPoints', 'medicPoints', 'performPoints', 
+        'pilotPoints', 'sleightOfHandPoints', 'stealthPoints', 'survivalPoints'];
+    getAttrs(attributes, function(values) { 
+    let total = 0;
+    attributes.forEach(attribute =>{  total += parseInt(values[attribute]) || 0;   });
+    setAttrs({ totalPoints : total });
+	});
+}
+
+function updateActionPoints() {
+    getAttrs(['dexterity', 'intelligence', 'RE'], function(values) {
+        let dex = parseInt(values.dexterity) || 0;
+        let int = parseInt(values.intelligence) || 0;
+        let re = parseInt(values.RE) || 0;
+        let points = dex + int + re;
+        let progressionList=[];
+        for (i = 1; i < 40; i++) {
+            progressionList = progressionList.concat(Math.pow(2, i-1));
+        }
+        let skillLevelBought = buySkillLevel(progressionList, points);
+        let result = Math.max(skillLevelBought, 1);
+        setAttrs({ actionPoints : result });
+    });
+}
+
+function updateDefense() {
+    getAttrs(['strength', 'dexterity', 'constitution', 'wisdom', 'RE', 'armorPenetrationPlus', 'shieldsPenetrationPlus', 'racialHPBonus'], function(values) {
+        /*
+            DEFENSE
+            Ranged Def	    10+Dex+Armor Def + Shield Def+Deflection+Misc
+            Melee Def	    Roll off + Misc + Deflection
+            Mental Def	    20+Wis+Deflection+RE+Misc
+            CDS	            _"10+Tech Level"__
+            
+            HEALTH
+            HP	        Race Base Bonus + Strength x Constitution
+            P+	        P+ = Floor( Con / 10)
+            Regen	    Floor(CON/5) / day
+        */
+
+        let str = parseInt(values.strength) || 0;
+        let dex = parseInt(values.dexterity) || 0;
+        let con = parseInt(values.constitution) || 0;
+        let wis = parseInt(values.wisdom) || 0;
+        
+        let re = parseInt(values.RE) || 0;
+        
+        let rangedMisc = 0;
+        let meleeMisc = 0;
+        let mentalMisc = 0;
+        
+        let techLevel = 0;
+        
+        let racialHPBonus = parseInt(values.racialHPBonus) || 0;
+        
+        let basePenetrationPlus = Math.floor(con/10);
+        let armorPenetrationPlus = parseInt(values.armorPenetrationPlus) || 0;
+        let shieldsPenetrationPlus = parseInt(values.shieldsPenetrationPlus) || 0;
+        
+        // DEFENSE
+        setAttrs({ rangedDefense : 10 + dex + armorPenetrationPlus + shieldsPenetrationPlus + rangedMisc + basePenetrationPlus});
+        setAttrs({ meleeDefense : armorPenetrationPlus + shieldsPenetrationPlus + meleeMisc + basePenetrationPlus });
+        setAttrs({ mentalDefense : 20 + wis + re + mentalMisc});
+        setAttrs({ CDS : 10 + techLevel });
+    
+        // HEALTH
+        setAttrs({ health_max : racialHPBonus + str*con });
+        setAttrs({ penetrationPlus : basePenetrationPlus });
+        setAttrs({ regen : Math.floor(con/5) });
+    });
+}
+
+function buySkillLevel(progressionList, points) {
+    let cont = true;
+    let iterator = 0;
+    let skillLevelBought = 0;
+    let p = points;
+    
+    while (cont) {
+        if (iterator >= progressionList.length) {
+            iterator = 0;
+        }
+        else if (p >= progressionList[iterator]) {
+            p = p - progressionList[iterator];
+            skillLevelBought = skillLevelBought +1;
+            iterator = iterator +1;
+        }
+        else {
+            cont = false;
+        }
+    }
+    return skillLevelBought;
+}
+
+/* --------------------------- WATCHERS -----------------------------------------------
+    These guys look for changes in attributes and executes 
+    code when they notice a change. 
+*/
+
+
+/*
+    You could condense the primary attribute watchers into pone, however, 
+    doing so would only save a few lines of code and come at the cost of having
+    to include lots of various bloated code. 
+    For example, if carry weight depends solely on strength, then it is 
+    unnecessary to recalculate it every time I change my intelligence. 
+    Thus why we have specific watchers for each primary attribute. 
+    This also makes it easier to debug, since each attribute handles itself. 
+*/
+on('change:strengthRacial change:strengthCybernetic change:strengthGenetic change:strengthVI change:strengthMisc change:strengthPoints', function(eventInfo) {
+    getAttrs(['strengthRacial', 'strengthCybernetic', 'strengthGenetic', "strengthVI", "strengthMisc", 'strengthPoints'], function(values) {
+        updatePointsSpent();
+        let r = parseInt(values.strengthRacial) || 0;
+        let c = parseInt(values.strengthCybernetic) || 0;
+        let g = parseInt(values.strengthGenetic) || 0;
+        let v = parseInt(values.strengthVI) || 0;
+        let m = parseInt(values.strengthMisc) || 0;
+        let p = parseInt(parseInt(values.strengthPoints)/3) || 0;
+        setAttrs({ strength : r+c+g+v+m+p });
+    });
+});
+
+
+
+on('change:dexterityRacial change:dexterityCybernetic change:dexterityGenetic change:dexterityVI change:dexterityMisc change:dexterityPoints', function(eventInfo) {
+    getAttrs(['dexterityRacial', 'dexterityCybernetic', 'dexterityGenetic', "dexterityVI", "dexterityMisc", 'dexterityPoints'], function(values) {
+        updatePointsSpent();
+        let r = parseInt(values.dexterityRacial) || 0;
+        let c = parseInt(values.dexterityCybernetic) || 0;
+        let g = parseInt(values.dexterityGenetic) || 0;
+        let v = parseInt(values.dexterityVI) || 0;
+        let m = parseInt(values.dexterityMisc) || 0;
+        let p = parseInt(parseInt(values.dexterityPoints)/3) || 0;
+        setAttrs({ dexterity : r+c+g+v+m+p });
+    });
+});
+
+
+
+on('change:constitutionRacial change:constitutionCybernetic change:constitutionGenetic change:constitutionVI change:constitutionMisc change:constitutionPoints', function(eventInfo) {
+    getAttrs(['constitutionRacial', 'constitutionCybernetic', 'constitutionGenetic', "constitutionVI", "constitutionMisc", 'constitutionPoints'], function(values) {
+        updatePointsSpent();
+        let r = parseInt(values.constitutionRacial) || 0;
+        let c = parseInt(values.constitutionCybernetic) || 0;
+        let g = parseInt(values.constitutionGenetic) || 0;
+        let v = parseInt(values.constitutionVI) || 0;
+        let m = parseInt(values.constitutionMisc) || 0;
+        let p = parseInt(parseInt(values.constitutionPoints)/3) || 0;
+        setAttrs({ constitution : r+c+g+v+m+p });
+    });
+});
+
+
+
+on('change:intelligenceRacial change:intelligenceCybernetic change:intelligenceGenetic change:intelligenceVI change:intelligenceMisc change:intelligencePoints', function(eventInfo) {
+    getAttrs(['intelligenceRacial', 'intelligenceCybernetic', 'intelligenceGenetic', "intelligenceVI", "intelligenceMisc", 'intelligencePoints'], function(values) {
+        updatePointsSpent();
+        let r = parseInt(values.intelligenceRacial) || 0;
+        let c = parseInt(values.intelligenceCybernetic) || 0;
+        let g = parseInt(values.intelligenceGenetic) || 0;
+        let v = parseInt(values.intelligenceVI) || 0;
+        let m = parseInt(values.intelligenceMisc) || 0;
+        let p = parseInt(values.intelligencePoints) || 0;
+        let progressionList = [];
+        for (i = 1; i < 100; i++) {
+            progressionList = progressionList.concat(i);
+        }
+        let skillLevelBought = buySkillLevel(progressionList, p);
+        setAttrs({ intelligence : r+c+g+v+m+skillLevelBought });
+    });
+});
+
+
+
+on('change:wisdomRacial change:wisdomCybernetic change:wisdomGenetic change:wisdomVI change:wisdomMisc change:wisdomPoints', function(eventInfo) {
+    getAttrs(['wisdomRacial', 'wisdomCybernetic', 'wisdomGenetic', "wisdomVI", "wisdomMisc", 'wisdomPoints'], function(values) {
+        updatePointsSpent();
+        let r = parseInt(values.wisdomRacial) || 0;
+        let c = parseInt(values.wisdomCybernetic) || 0;
+        let g = parseInt(values.wisdomGenetic) || 0;
+        let v = parseInt(values.wisdomVI) || 0;
+        let m = parseInt(values.wisdomMisc) || 0;
+        let p = parseInt(values.wisdomPoints) || 0;
+        let progressionList = [];
+        for (i = 1; i < 100; i++) {
+            progressionList = progressionList.concat(i);
+        }
+        let skillLevelBought = buySkillLevel(progressionList, p);
+        setAttrs({ wisdom : r+c+g+v+m+skillLevelBought });
+    });
+});
+
+
+
+on('change:charismaRacial change:charismaCybernetic change:charismaGenetic change:charismaVI change:charismaMisc change:charismaPoints', function(eventInfo) {
+    getAttrs(['charismaRacial', 'charismaCybernetic', 'charismaGenetic', "charismaVI", "charismaMisc", 'charismaPoints'], function(values) {
+        updatePointsSpent();
+        let r = parseInt(values.charismaRacial) || 0;
+        let c = parseInt(values.charismaCybernetic) || 0;
+        let g = parseInt(values.charismaGenetic) || 0;
+        let v = parseInt(values.charismaVI) || 0;
+        let m = parseInt(values.charismaMisc) || 0;
+        let p = parseInt(values.charismaPoints) || 0;
+        let progressionList = [];
+        for (i = 1; i < 100; i++) {
+            progressionList = progressionList.concat(i);
+        }
+        let skillLevelBought = buySkillLevel(progressionList, p);
+        setAttrs({ charisma : r+c+g+v+m+skillLevelBought });
+
+    });
+});
+
+
+on('change:strength change:dexterity change:constitution change:intelligence change:wisdom change:charisma', function(eventInfo) {
+    updateActionPoints();
+    updateDefense();
+});
+
+
+
+// End of the primary attribute watchers, now comes other watchers. 
+
+
+
+// Racial watcher
+on('change:race', function(eventInfo) {
+    /*
+        This watcher looks for changes in race, and set the primaryRacial 
+        attributes as appropriate. Again, this code could be made more compact, 
+        but I prefer readability over fewer lines of code. 
+    */
+    getAttrs(['race'], function(values) {
+        if (values.race == "Kholodan") {
+            setAttrs({ strengthRacial :         3 });
+            setAttrs({ dexterityRacial :        0 });
+            setAttrs({ constitutionRacial :     3 });
+            setAttrs({ intelligenceRacial :     0 });
+            setAttrs({ wisdomRacial :           0 });
+            setAttrs({ charismaRacial :         0 });
+            setAttrs({ strengthRacial_max :     25 });
+            setAttrs({ dexterityRacial_max :    3 });
+            setAttrs({ constitutionRacial_max : 15 });
+            setAttrs({ racialHPBonus :          999 });
+        }
+        else if (values.race == "Sollox") {
+            setAttrs({ strengthRacial :         0 });
+            setAttrs({ dexterityRacial :        0 });
+            setAttrs({ constitutionRacial :     0 });
+            setAttrs({ intelligenceRacial :     3 });
+            setAttrs({ wisdomRacial :           3 });
+            setAttrs({ charismaRacial :         0 });
+            setAttrs({ strengthRacial_max :     3 });
+            setAttrs({ dexterityRacial_max :    6 });
+            setAttrs({ constitutionRacial_max : 5 });
+            setAttrs({ racialHPBonus :          15 });
+        }
+        else if (values.race == "Talaxian") {
+            setAttrs({ strengthRacial :         2 });
+            setAttrs({ dexterityRacial :        0 });
+            setAttrs({ constitutionRacial :     3 });
+            setAttrs({ intelligenceRacial :     0 });
+            setAttrs({ wisdomRacial :           0 });
+            setAttrs({ charismaRacial :         1 });
+            setAttrs({ strengthRacial_max :     10 });
+            setAttrs({ dexterityRacial_max :    6 });
+            setAttrs({ constitutionRacial_max : 5 });
+            setAttrs({ racialHPBonus :          25 });
+        }
+        else if (values.race == "Thorn") {
+            setAttrs({ strengthRacial :         0 });
+            setAttrs({ dexterityRacial :        0 });
+            setAttrs({ constitutionRacial :     1 });
+            setAttrs({ intelligenceRacial :     1 });
+            setAttrs({ wisdomRacial :           2 });
+            setAttrs({ charismaRacial :         2 });
+            setAttrs({ strengthRacial_max :     10 });
+            setAttrs({ dexterityRacial_max :    3 });
+            setAttrs({ constitutionRacial_max : 5 });
+            setAttrs({ racialHPBonus :          20 });
+        }
+        else {
+            setAttrs({ strengthRacial :         0 });
+            setAttrs({ dexterityRacial :        0 });
+            setAttrs({ constitutionRacial :     0 });
+            setAttrs({ intelligenceRacial :     0 });
+            setAttrs({ wisdomRacial :           0 });
+            setAttrs({ charismaRacial :         0 });
+            setAttrs({ racialHPBonus :          20 });
+        }
+    });
+});
+// End of racial watcher
+
+
+
+
+// Education and general skills watcher
+let listOfSkills = ['biology', 'business', 'chemistry', 'tronics', 'law', 'physics', 'programming', 'acrobatics', 'athletics', 'awareness', 
+    'barter', 'charm', 'diplomacy', 'fighterPilot', 'focus', 'forgery', 'gatherInfo', 'intimidate', 'investigation', 'medic', 'perform', 
+    'pilot', 'sleightOfHand', 'stealth', 'survival'];
+let listOfSkillsMap = listOfSkills.map(skill => 
+    " change:" + skill + "Attribute" + 
+    " change:" + skill + "VI" + 
+    " change:" + skill + "Cause" + 
+    " change:" + skill + "Misc" +
+    " change:" + skill + "Progression" + 
+    " change:" + skill + "Points").join(" ");
+listOfSkillsMap = listOfSkillsMap.concat("change:strength change:dexterity change:constitution change:intelligence change:wisdom change:charisma");
+on(listOfSkillsMap, (eventInfo) => {
+    // GET VALUES
+    let list = [];
+    list = list.concat( listOfSkills.map(x => x + "VI") );
+    list = list.concat( listOfSkills.map(x => x + "Cause") );
+    list = list.concat( listOfSkills.map(x => x + "Misc") );
+    list = list.concat( listOfSkills.map(x => x + "Points") );
+    list = list.concat( listOfSkills.map(x => x + "Attribute") );
+    list = list.concat( listOfSkills.map(x => x + "Progression") );
+    getAttrs(list, (values) => {
+        updatePointsSpent();
+        listOfSkills.forEach(skill =>{
+            // Get primary attribute
+            let a = 0;
+            let primaryAttribute = values[skill + "Attribute"].toLowerCase();
+            getAttrs([primaryAttribute], primaryAttributeValue => {
+                a = parseInt(primaryAttributeValue[primaryAttribute]) || 0;
+                // Get secondary attributes
+                let v = parseInt(values[skill + "VI"]) || 0;
+                let c = parseInt(values[skill + "Cause"]) || 0;
+                let m = parseInt(values[skill + "Misc"]) || 0;
+                let progression = values[skill + "Progression"] || "";
+                let p = parseInt(values[skill + "Points"]) || 0;
+                
+                // Time to parse how many skill points the points yield
+                
+                let progressionList = [];
+                if (progression == "1,2,3,4,5...") { 
+                    for (i = 1; i < 100; i++) {
+                        progressionList = progressionList.concat(i);
+                    }
+                }
+                if (progression != "1,2,3,4,5...")  { 
+                    progressionList = progression.split(",");
+                }
+                let skillLevelBought = buySkillLevel(progressionList, p);
+                let total = a+v+c+m+skillLevelBought;
+                // Set attribute
+                setAttrs({ [skill] :         total });
+
+            });
+        }); 
+    });
+});
+
+
+
+// Watching for when sheet is opened and initializing any empty numerical values
+on('sheet:opened', function(values) {
+    /* 
+        The purpose of this watcher is to initialize all the 
+        various important attributes, and thus avoid the complication of trying to 
+        do something with something that is undefined. Other places of the code
+        will try to have safeguards against this, but this is just another layer
+        of protection in case I miss something. 
+    */ 
+    
+    // INITIALIZING NUMERIAL ATTRIBUTES
+    
+    let listOfNumericalAttributes = new Object();
+    
+    // Core attributes
+    listOfNumericalAttributes["strength"] = ["strengthRacial", "strengthCybernetic", "strengthVI", "strengthGenetic", "strengthMisc", "strengthPoints"];
+    listOfNumericalAttributes["dexterity"] = ["dexterityRacial", "dexterityCybernetic", "dexterityVI", "dexterityGenetic", "dexterityMisc", "dexterityPoints"];
+    listOfNumericalAttributes["constitution"] = ["constitutionRacial", "constitutionCybernetic", "constitutionVI", "constitutionGenetic", "constitutionMisc", "constitutionPoints"];
+    listOfNumericalAttributes["intelligence"] = ["intelligenceRacial", "intelligenceCybernetic", "intelligenceVI", "intelligenceGenetic", "intelligenceMisc", "intelligencePoints"];
+    listOfNumericalAttributes["wisdom"] = ["wisdomRacial", "wisdomCybernetic", "wisdomVI", "wisdomGenetic", "wisdomMisc", "wisdomPoints"];
+    listOfNumericalAttributes["charisma"] = ["charismaRacial", "charismaCybernetic", "charismaVI", "charismaGenetic", "charismaMisc", "charismaPoints"];
+    
+    // Education
+    listOfNumericalAttributes["biology"] = ["biologyVI", "biologyCause", "biologyMisc", "biologyPoints"];
+    listOfNumericalAttributes["business"] = ["businessVI", "businessCause", "businessMisc", "businessPoints"];
+    listOfNumericalAttributes["chemistry"] = ["chemistryVI", "chemistryCause", "chemistryMisc", "chemistryPoints"];
+    listOfNumericalAttributes["tronics"] = ["tronicsVI", "tronicsCause", "tronicsMisc", "tronicsPoints"];
+    listOfNumericalAttributes["law"] = ["lawVI", "lawCause", "lawMisc", "lawPoints"];
+    listOfNumericalAttributes["physics"] = ["physicsVI", "physicsCause", "physicsMisc", "physicsPoints"];
+    listOfNumericalAttributes["programming"] = ["programmingVI", "programmingCause", "programmingMisc", "programmingPoints"];
+    
+    // General skills
+    listOfNumericalAttributes["acrobatics"] = ["acrobaticsVI", "acrobaticsCause", "acrobaticsMisc", "acrobaticsPoints"];
+    listOfNumericalAttributes["athletics"] = ["athleticsVI", "athleticsCause", "athleticsMisc", "athleticsPoints"];
+    listOfNumericalAttributes["awareness"] = ["awarenessVI", "awarenessCause", "awarenessMisc", "awarenessPoints"];
+    listOfNumericalAttributes["barter"] = ["barterVI", "barterCause", "barterMisc", "barterPoints"];
+    listOfNumericalAttributes["charm"] = ["charmVI", "charmCause", "charmMisc", "charmPoints"];
+    listOfNumericalAttributes["diplomacy"] = ["diplomacyVI", "diplomacyCause", "diplomacyMisc", "diplomacyPoints"];
+    listOfNumericalAttributes["fighterPilot"] = ["fighterPilotVI", "fighterPilotCause", "fighterPilotMisc", "fighterPilotPoints"];
+    listOfNumericalAttributes["focus"] = ["focusVI", "focusCause", "focusMisc", "focusPoints"];
+    listOfNumericalAttributes["forgery"] = ["forgeryVI", "forgeryCause", "forgeryMisc", "forgeryPoints"];
+    listOfNumericalAttributes["gatherInfo"] = ["gatherInfoVI", "gatherInfoCause", "gatherInfoMisc", "gatherInfoPoints"];
+    listOfNumericalAttributes["intimidate"] = ["intimidateVI", "intimidateCause", "intimidateMisc", "intimidatePoints"];
+    listOfNumericalAttributes["investigation"] = ["investigationVI", "investigationCause", "investigationMisc", "investigationPoints"];
+    listOfNumericalAttributes["medic"] = ["medicVI", "medicCause", "medicMisc", "medicPoints"];
+    listOfNumericalAttributes["perform"] = ["performVI", "performCause", "performMisc", "performPoints"];
+    listOfNumericalAttributes["pilot"] = ["pilotVI", "pilotCause", "pilotMisc", "pilotPoints"];
+    listOfNumericalAttributes["sleightOfHand"] = ["sleightOfHandVI", "sleightOfHandCause", "sleightOfHandMisc", "sleightOfHandPoints"];
+    listOfNumericalAttributes["stealth"] = ["stealthVI", "stealthCause", "stealthMisc", "stealthPoints"];
+    listOfNumericalAttributes["survival"] = ["survivalVI", "survivalCause", "survivalMisc", "survivalPoints"];
+    
+    // Create a list of all the variables and populate it with the values above
+    let list = [];
+    
+    for (var key in listOfNumericalAttributes) {
+        // check if the property/key is defined in the object itself, not in parent
+        list.push(key);
+        if (listOfNumericalAttributes.hasOwnProperty(key)) {           
+            list = list.concat(listOfNumericalAttributes[key]);
+        } 
+    }
+    
+    // Initialize all of the undefined values on the character sheet to 0. 
+    getAttrs(list, function(values) {
+        list.forEach(attribute =>{
+            if (!values[attribute]) {
+                setAttrs({ [attribute] : 0 });
+            }
+        });
+    });
+});
+
+
+
+// Watching for when armor and shields change
+on('change:penetrationPlus change:armorPenetrationPlus change:shieldsPenetrationPlus', function(eventInfo) {
+    updateDefense();
+});
+
+
+// Watching for when ranged weapon change
+on('change:rangedWeapon change:rangedDamage change:rangedHitBonus change:rangedPenetrationPlus change:rangedRoF change:rangedAmmunition change:rangedAmmunition_max change:rangedRange change:rangedSkill', function(eventInfo) {
+    getAttrs(['rangedWeapon', 'rangedDamage', 'rangedHitBonus', 'rangedPenetrationPlus', "rangedRoF", "rangedAmmunition", 'rangedAmmunition_max', 'rangedRange', 'rangedSkill'], function(values) {
+        let textToChat = "&{template:default}"; 
+        textToChat = textToChat.concat(" {{name=" + values.rangedWeapon + "}}");
+        textToChat = textToChat.concat(" {{Hit= [[1d20+" + values.rangedHitBonus + "]]}}");
+        textToChat = textToChat.concat(" {{Damage= [[" + values.rangedDamage + "]]}}");
+        textToChat = textToChat.concat(" {{Penetration= " + values.rangedPenetrationPlus + "}}");
+        textToChat = textToChat.concat(" {{Ammunition= " + String(parseInt(values.rangedAmmunition)-1) + " / " + values.rangedAmmunition_max + "}}");
+        console.log(textToChat);
+        setAttrs({ rangedRoll :         textToChat });
+    });
+});
+
+on('clicked:rangedAmmoReduce', function() {
+    getAttrs(['rangedAmmunition'], function(values) {
+        setAttrs({ rangedAmmunition: values.rangedAmmunition-1 });
+   });
+});
+
+on('clicked:rangedAmmoReload', function() {
+    getAttrs(['rangedAmmunition', 'rangedAmmunition_max'], function(values) {
+        let maximum = values.rangedAmmunition_max;
+        setAttrs({ rangedAmmunition: maximum });
+   });
+});
+
+
+// Watching for when melee weapon change
+on('change:meleeWeapon change:meleeDamage change:meleeHitBonus change:meleePenetrationPlus change:meleeRoF change:meleeAmmunition change:meleeAmmunition_max change:meleeRange change:meleeSkill', function(eventInfo) {
+    getAttrs(['meleeWeapon', 'meleeDamage', 'meleeHitBonus', 'meleePenetrationPlus', "meleeRoF", "meleeAmmunition", 'meleeAmmunition_max', 'meleeRange', 'meleeSkill'], function(values) {
+        let textToChat = "&{template:default}"; 
+        textToChat = textToChat.concat(" {{name=" + values.meleeWeapon + "}}");
+        textToChat = textToChat.concat(" {{Hit= [[1d20+" + values.meleeHitBonus + "]]}}");
+        textToChat = textToChat.concat(" {{Damage= [[" + values.meleeDamage + "]]}}");
+        textToChat = textToChat.concat(" {{Penetration= " + values.meleePenetrationPlus + "}}");
+        textToChat = textToChat.concat(" {{Ammunition= " + String(parseInt(values.meleeAmmunition)-1) + " / " + values.meleeAmmunition_max + "}}");
+        console.log(textToChat);
+        setAttrs({ meleeRoll :         textToChat });
+    });
+});
+
+on('clicked:meleeAmmoReduce', function() {
+    getAttrs(['meleeAmmunition'], function(values) {
+        // get the level stat, and coerce into a numerical value.
+        setAttrs({ meleeAmmunition: values.meleeAmmunition-1 });
+   });
+});
+
+on('clicked:meleeAmmoReload', function() {
+    getAttrs(['meleeAmmunition', 'meleeAmmunition_max'], function(values) {
+        // get the level stat, and coerce into a numerical value.
+        let maximum = values.meleeAmmunition_max;
+        setAttrs({ meleeAmmunition: maximum });
+   });
+});
+
+
+</script>
